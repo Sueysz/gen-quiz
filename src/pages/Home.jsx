@@ -5,11 +5,11 @@ export const Home = () => {
     const quizList = listQuiz();
 
     return <>
-        <div>
+        <div id='Home'>
             <div className='log'>
                 <button>Login</button>
             </div>
-            <h1 >Choisi ton quiz</h1>
+            <h1>👇Choisi ton quiz👇</h1>
 
             <div className='grid'>
                 {quizList.map(quiz => {

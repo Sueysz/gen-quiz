@@ -1,4 +1,4 @@
-h1{
+#Home h1{
     text-align: center;
 }
 
@@ -31,4 +31,11 @@ h1{
     cursor: pointer;
     transform: scale(1.05);
     
+}
+
+@media screen and (max-width:420px){
+
+    .card{
+        width: 390px;
+    }
 }
