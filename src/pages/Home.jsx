@@ -1,5 +1,6 @@
 import './Home.css'
 import { listQuiz } from '../api'
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
     const quizList = listQuiz();
@@ -7,7 +8,7 @@ export const Home = () => {
     return <>
         <div id='Home'>
             <div className='log'>
-                <button>Login</button>
+                <button><Link to="/login">Login</Link></button>
             </div>
             <h1>👇Choisi ton quiz👇</h1>
 
