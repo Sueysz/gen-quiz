@@ -1,10 +1,22 @@
-// import { getQuiz } from "../api";
-// import { useParams } from "react-router-dom"
+// import { useState } from "react"
 
-import { useState } from "react"
-import {Link} from 'react-router-dom'
-import './home.css'
+import { Link } from 'react-router-dom';
+import './Test.css'
+import { useState } from "react";
 
+// export const Test =()=>{
+//     const [fruitsIndex, setFruitsIndex] = useState(0)
+//     const fruits = [
+//         "fraise 🍓",
+//         "abricot 🍑",
+//         "Ananas 🍍",
+//     ]
+//     return <>
+//         <button onClick={()=> setFruitsIndex(Math.floor(Math.random() * fruits.length))}>
+//             {fruits[fruitsIndex]}
+//         </button>
+//     </>
+// }
 
 const questions = [
     {
@@ -37,7 +49,7 @@ const questions = [
 ]
 
 
-export const Quiz = () => {
+export const Test = () => {
     const [selectedAnswer, setSelectedAnswer] = useState()
     const [questionsIndex, setQuestionsIndex] = useState(0)
     const question = questions[questionsIndex]

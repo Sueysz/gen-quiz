@@ -1,3 +1,4 @@
+import { Test } from './pages/test';
 import { Quiz } from './pages/Quiz';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -15,8 +16,9 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path='quiz/:id' element={<Quiz/>} />
+          <Route path='quiz/:slug' element={<Quiz/>} />
           <Route path="*" element={<NotFound />} />
+          <Route path='test' element={<Test />}/>
       </Routes>
     </>
   )

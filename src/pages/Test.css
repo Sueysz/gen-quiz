@@ -1,0 +1,9 @@
+.answer{
+    background-color: #eeeeeeee;
+    border:4px solid transparent;
+    
+}
+
+.answer.selected{
+    border: 4px solid blue;
+}
