@@ -1,0 +1,42 @@
+html{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.answer{
+    background-color: #eeeeeeee;
+    border:4px solid transparent;
+    
+}
+
+.answer.selected{
+    border: 4px solid blue;
+}
+
+
+#question h1{
+    text-align: center;
+    font-size: 3rem;
+}
+
+#question button{
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+    width: 800px;
+    border-radius: 5px;
+}
+
+#answers{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;;
+    align-items: center
+}
+
+#confirm{
+    display: flex;
+    justify-content: center;
+}
