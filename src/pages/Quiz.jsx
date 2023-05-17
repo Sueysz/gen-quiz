@@ -1,9 +1,9 @@
 import './Quiz.css'
-import { listQuiz, getQuiz } from '../api'
-import { useState } from "react"
+import { getQuiz } from '../api'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import { useParams } from 'react-router-dom';
 import { fireConfetti } from "../utils/fireConffeti"
-
 
 const questions = [
     {
@@ -35,17 +35,22 @@ const questions = [
     }
 ]
 
-
 export const Quiz = () => {
+    const { slug } = useParams();
+    const [quiz, setQuiz] = useState(null)
     const [selectedAnswer, setSelectedAnswer] = useState()
     const [questionsIndex, setQuestionsIndex] = useState(0)
+
+    useEffect(() => {
+        const currentQuiz = getQuiz(slug);
+        setQuiz(currentQuiz)
+    }, [])
+
     const question = questions[questionsIndex]
-    const quizzes = listQuiz();
-    const quiz = getQuiz(quizzes[questionsIndex].slug)
 
     const checkAnswer = () => {
         if (question.solution === selectedAnswer) {
-            fireConfetti();
+            fireConfetti()
             setQuestionsIndex((i) => i + 1)
         } else {
             alert('Oups, recommencez 😓')
@@ -65,11 +70,13 @@ export const Quiz = () => {
 
     return (
         <>
-            <div>
-                <button>
-                    Back ←
-                </button>
-                <h1>{quiz.title}</h1>
+            <div id='header'>
+                <div id='title'>
+                    <button>
+                        Back ←
+                    </button>
+                    <h1>{quiz ? quiz.title : ""}</h1>
+                </div>
             </div>
             <div id="question">
                 <h1>{question.question}</h1>

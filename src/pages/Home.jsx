@@ -14,9 +14,9 @@ export const Home = () => {
 
             <div className='grid'>
                 {quizList.map(quiz => {
-                    return <a href={`quiz/${quiz.slug}`} className='card' style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                    return <Link to={`quiz/${quiz.slug}`} className='card' style={{ backgroundColor: quiz.color }} key={quiz.id}>
                         <div>{quiz.title}</div>
-                    </a>
+                    </Link>
                 })}
             </div>
         </div>
