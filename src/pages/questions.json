@@ -1,0 +1,54 @@
+{"data": [{"question": "quel est mon plat préféré ?🤤", "answers": [
+            "🍔 les burgers",
+                "🍙 les onigiris",
+                "🍟 les frites"
+            ],
+            "solution": 0
+        },
+        {
+            "question": "quel language n'existe pas ?🤔",
+            "answers": [
+                "javascript",
+                "Pithon",
+                "coffe-script"
+            ],
+            "solution": 1
+        },
+        {
+            "question": "sun préfère quel endroit pour ses vacances ?⛷️",
+            "answers": [
+                "Sa chambre",
+                "L'Angleterre",
+                "Lille"
+            ],
+            "solution": 0
+        }
+    ]
+}
+{"data": [{"question": "Quel language est compiler ?🤔", "answers": [
+            "c",
+                "js",
+                "pyton"
+            ],
+            "solution": 0
+        },
+        {
+            "question": "combien font '1'+'1'?😓",
+            "answers": [
+                "2",
+                "11",
+                "1+1"
+            ],
+            "solution": 1
+        },
+        {
+            "question": "sun préfère quel endroit pour ses chill ?💤",
+            "answers": [
+                "son lit",
+                "un banc",
+                "le casino"
+            ],
+            "solution": 0
+        }
+    ]
+}

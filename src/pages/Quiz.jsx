@@ -15,9 +15,10 @@ export const Quiz = () => {
         getQuiz(slug)
         .then(setQuiz)
     }, [])
+    console.log("IN",quiz)
 
-    const question = questions[questionsIndex]
-
+    const question = quiz === null ? undefined : JSON.parse(quiz.questions).data[questionsIndex] //verifier si qui est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
+    console.log(question)
     const checkAnswer = () => {
         if (question.solution === selectedAnswer) {
             fireConfetti()
