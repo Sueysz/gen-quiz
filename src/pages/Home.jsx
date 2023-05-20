@@ -1,9 +1,13 @@
 import './Home.css'
 import { listQuiz } from '../api'
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export const Home = () => {
-    const quizList = listQuiz();
+    const [quizList, setQuizList] = useState([]);
+    useEffect(() => {
+        listQuiz().then(setQuizList)
+    }, [])
 
     return <>
         <div id='Home'>
