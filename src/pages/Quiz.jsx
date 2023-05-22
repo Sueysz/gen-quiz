@@ -45,9 +45,7 @@ export const Quiz = () => {
 
             <div id='header'>
                 <div id='title'>
-                    <button>
-                        <Link to="/">Back ←</Link>
-                    </button>
+                        <Link className='back' to="/">Back</Link>
                     <h1>{quiz ? quiz.title : ""}</h1>
                 </div>
             </div>

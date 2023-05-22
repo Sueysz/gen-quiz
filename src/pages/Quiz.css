@@ -1,36 +1,45 @@
-#container{
+#container {
     height: 100vh;
 }
-.answer{
+
+.answer {
     background-color: rgba(238, 238, 238, 0);
-    border:3px solid rgba(0, 0, 0, 1);
-    
+    border: 3px solid rgba(0, 0, 0, 1);
+
 }
 
-.answer.selected{
+.answer.selected {
     border: 4px solid rgb(0, 0, 0);
-    background-color: black;
-    color: white;
+    background-color: rgb(1, 1, 1,0.2);
+    color: #fafafa;
 }
 
-#answers{
+#answers {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 20px;;
+    gap: 20px;
     align-items: center;
+    
 }
-#answers :hover{
+
+#answers :hover {
     cursor: pointer;
+    background-color: rgb(1, 1, 1,0.2);
+    color: #fafafa;
 }
 
-
-#question h1{
+#question {
+    color : #fafafa;
+}
+#question h1 {
+    color:#fafafa;
     text-align: center;
     font-size: 3rem;
 }
 
-#question button{
+#question button {
+    color: #fafafa;
     display: flex;
     justify-content: center;
     font-size: 2.5rem;
@@ -40,14 +49,40 @@
 
 
 
-#confirm{
+#confirm {
     display: flex;
     justify-content: center;
 }
-#confirm :hover{
+
+#confirm :hover {
     cursor: pointer;
 }
 
-#title{
+#title {
     display: flex;
+    gap: 30px;
+    color: #fafafa;
 }
+
+a{
+    text-decoration: none ;
+}
+button{
+    background-color: rgb(1, 1, 1,0.2);
+}
+
+.back {
+    cursor: pointer;
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    font-size: 2rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #fafafa;
+
+}
+
+
