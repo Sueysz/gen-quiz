@@ -16,8 +16,8 @@ export const Quiz = () => {
         .then(setQuiz)
     }, [])
     console.log("IN",quiz)
-
-    const question = quiz === null ? undefined : JSON.parse(quiz.questions).data[questionsIndex] //verifier si qui est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
+    
+    const question = quiz === null ? undefined : JSON.parse(quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
     console.log(question)
     const checkAnswer = () => {
         if (question.solution === selectedAnswer) {
@@ -41,6 +41,8 @@ export const Quiz = () => {
 
     return (
         <>
+        <div id='container' style={{ backgroundColor: quiz.color }}>
+
             <div id='header'>
                 <div id='title'>
                     <button>
@@ -70,6 +72,7 @@ export const Quiz = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }
