@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const LoginPage = styled.div`
+export const RegisterPage = styled.div`
     h1{
         text-align: center;
         font-size: 3rem;
@@ -12,6 +12,7 @@ export const LoginPage = styled.div`
         align-items: center;
         flex-direction: column;
     }
+
     input{
         width: 30vw;
         height: 7vh;

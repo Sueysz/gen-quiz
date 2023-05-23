@@ -1,9 +1,27 @@
 
-import { listQuiz } from '../api'
-import { useEffect, useState } from 'react';
-import { LoginButton } from '../components/Buttons';
-import { HomePage } from '../components/HomePage';
+import styled from '@emotion/styled';
 import { Card } from '../components/Card';
+import { listQuiz } from '../api'
+import { LoginButton } from '../components/Buttons';
+import { useEffect, useState } from 'react';
+
+
+const HomePage = styled.div`
+    h1{
+        text-align:center;
+    }
+
+    .log{
+        display:flex;
+        flex-direction:row-reverse;
+    }
+    .grid{
+        gap: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+`
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);

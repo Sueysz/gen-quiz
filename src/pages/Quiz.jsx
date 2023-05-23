@@ -1,9 +1,21 @@
-import './Quiz.css'
+
 import { getQuiz } from '../api'
 import { Link, useParams, } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import { fireConfetti } from "../utils/fireConffeti"
+import styled from '@emotion/styled'
+import { Answer, Answers } from '../components/Answers'
+import { QuestionContainer } from '../components/QuestionContainer'
+import { BackButton, ValidationButton } from '../components/Buttons'
 
+const Container = styled.div`
+    height:100vh;
+`
+const TitleContainer = styled.div`
+    display: flex;
+    gap: 30px;
+    color: #fafafa;
+`
 
 export const Quiz = () => {
     const { slug } = useParams();
@@ -41,36 +53,35 @@ export const Quiz = () => {
 
     return (
         <>
-        <div id='container' style={{ backgroundColor: quiz.color }}>
+        <Container style={{ backgroundColor: quiz.color }}>
 
             <div id='header'>
-                <div id='title'>
-                        <Link  className='back' to="/">Back</Link>
+                <TitleContainer>
+                        <BackButton  className='back' to="/">Back</BackButton>
                     <h1>{quiz ? quiz.title : ""}</h1>
-                </div>
+                </TitleContainer>
             </div>
-            <div id="question">
+            <QuestionContainer>
                 <h1>{question.question}</h1>
-                <div id="answers">
+                <Answers>
                     {question.answers.map((btn, i) => {
                         return (
-                            <button
+                            <Answer
                                 key={btn}
-                                className={i === selectedAnswer ? 'answer selected' : 'answer'}
+                                color='#fafafa'
+                                selected={i === selectedAnswer}
                                 onClick={() => setSelectedAnswer(i)}
                             >
                                 {i + 1}. {btn}
-                            </button>
+                            </Answer>
                         )
                     })}
-                    <div id="confirm">
-                        <button disabled={selectedAnswer === undefined} onClick={checkAnswer}>
+                    <ValidationButton disabled={selectedAnswer === undefined} onClick={checkAnswer}>
                             Confirm
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </ValidationButton>
+                </Answers>
+            </QuestionContainer>
+        </Container>
         </>
     )
 }
