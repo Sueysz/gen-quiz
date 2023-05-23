@@ -1,13 +1,14 @@
 import { login } from '../api'
 import './Login.css'
 import { Link } from 'react-router-dom'
+import { LoginPage } from '../components/LoginPage'
 
 export const Login = () => {
     const handleLogin = ()=>{
         login("sun",123)
     }
     return <>
-        <div id="login">
+        <LoginPage >
             <h1>Welcome back 👻</h1>
             <form onSubmit={handleLogin}>
                 <input type="text" placeholder='Username' />
@@ -16,6 +17,6 @@ export const Login = () => {
                 <span>Don't you have an account? <Link to="/register">Register</Link></span>
             </form>
             
-        </div>
+        </LoginPage>
     </>
 }

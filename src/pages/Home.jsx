@@ -1,7 +1,9 @@
-import './Home.css'
+
 import { listQuiz } from '../api'
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { LoginButton } from '../components/Buttons';
+import { HomePage } from '../components/HomePage';
+import { Card } from '../components/Card';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);
@@ -10,20 +12,20 @@ export const Home = () => {
     }, [])
 
     return <>
-        <div id='Home'>
+        <HomePage>
             <div className='log'>
-                <button><Link to="/login">Login</Link></button>
+                <LoginButton to="/login">Login</LoginButton>
             </div>
             <h1>👇Choisi ton quiz👇</h1>
 
             <div className='grid'>
                 {quizList.map(quiz => {
-                    return <Link to={`quiz/${quiz.slug}`} className='card' style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                    return <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
                         <div>{quiz.title}</div>
-                    </Link>
+                    </Card>
                 })}
             </div>
-        </div>
+        </HomePage>
     </>
 
 }
