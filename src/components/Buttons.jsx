@@ -35,6 +35,8 @@ export const ValidationButton = styled.button`
     font-size: 2.5rem;
     width: 800px;
     border-radius: 5px;
+    cursor: pointer;
+    background-color:rgba(0,0,0,0.2);
 
     &:hover{
         background-color:rgba(1,1,1,0.4);
