@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom';
 import './Test.css'
 import { useState } from "react";
-
+import Couleurs from './Couleurs';
 // export const Test =()=>{
 //     const [fruitsIndex, setFruitsIndex] = useState(0)
 //     const fruits = [
@@ -64,7 +64,7 @@ export const Test = () => {
     }
     if(question === undefined){
         return<>
-            <div>bravo <button ><Link to="/">Retour au Quiz</Link></button></div>
+            <div color="">bravo <button ><Link to="/">Retour au Quiz</Link></button></div>
         </>
     }
 

@@ -25,10 +25,10 @@ export const Quiz = () => {
 
     useEffect(() => {
         getQuiz(slug)
-        .then(setQuiz)
+            .then(setQuiz)
     }, [])
-    console.log("IN",quiz)
-    
+    console.log("IN", quiz)
+
     const question = quiz === null ? undefined : JSON.parse(quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
     console.log(question)
     const checkAnswer = () => {
@@ -53,35 +53,35 @@ export const Quiz = () => {
 
     return (
         <>
-        <Container style={{ backgroundColor: quiz.color }}>
+            <Container style={{ backgroundColor: quiz.color }}>
 
-            <div id='header'>
-                <TitleContainer>
-                        <BackButton  className='back' to="/">Back</BackButton>
-                    <h1>{quiz ? quiz.title : ""}</h1>
-                </TitleContainer>
-            </div>
-            <QuestionContainer>
-                <h1>{question.question}</h1>
-                <Answers>
-                    {question.answers.map((btn, i) => {
-                        return (
-                            <Answer
-                                key={btn}
-                                color='#fafafa'
-                                selected={i === selectedAnswer}
-                                onClick={() => setSelectedAnswer(i)}
-                            >
-                                {i + 1}. {btn}
-                            </Answer>
-                        )
-                    })}
-                    <ValidationButton disabled={selectedAnswer === undefined} onClick={checkAnswer}>
+                <div id='header'>
+                    <TitleContainer>
+                        <BackButton className='back' to="/">Back</BackButton>
+                        <h1>{quiz ? quiz.title : ""}</h1>
+                    </TitleContainer>
+                </div>
+                <QuestionContainer>
+                    <h1>{question.question}</h1>
+                    <Answers>
+                        {question.answers.map((btn, i) => {
+                            return (
+                                <Answer
+                                    key={btn}
+                                    color='#fafafa'
+                                    selected={i === selectedAnswer}
+                                    onClick={() => setSelectedAnswer(i)}
+                                >
+                                    {i + 1}. {btn}
+                                </Answer>
+                            )
+                        })}
+                        <ValidationButton disabled={selectedAnswer === undefined} onClick={checkAnswer}>
                             Confirm
-                    </ValidationButton>
-                </Answers>
-            </QuestionContainer>
-        </Container>
+                        </ValidationButton>
+                    </Answers>
+                </QuestionContainer>
+            </Container>
         </>
     )
 }
