@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom';
 import './Test.css'
 import { useState } from "react";
-import Couleurs from './Couleurs';
+
 // export const Test =()=>{
 //     const [fruitsIndex, setFruitsIndex] = useState(0)
 //     const fruits = [
