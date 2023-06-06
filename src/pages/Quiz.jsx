@@ -1,11 +1,10 @@
-
-import { getQuiz } from '../api'
-import { Link, useParams, } from 'react-router-dom'
-import { useState, useEffect } from "react"
-import { fireConfetti } from "../utils/fireConffeti"
 import styled from '@emotion/styled'
+import { getQuiz } from '../api'
+import { fireConfetti } from "../utils/fireConffeti"
 import { Answer, Answers } from '../components/Answers'
+import { Link, useParams, } from 'react-router-dom'
 import { QuestionContainer } from '../components/QuestionContainer'
+import { useState, useEffect } from "react"
 import { BackButton, ValidationButton } from '../components/Buttons'
 
 const Container = styled.div`
@@ -17,11 +16,11 @@ const TitleContainer = styled.div`
     color: #fafafa;
 `
 
+const { slug } = useParams();
 export const Quiz = () => {
-    const { slug } = useParams();
     const [quiz, setQuiz] = useState(null)
-    const [selectedAnswer, setSelectedAnswer] = useState()
     const [questionsIndex, setQuestionsIndex] = useState(0)
+    const [selectedAnswer, setSelectedAnswer] = useState()
 
     useEffect(() => {
         getQuiz(slug)
@@ -29,7 +28,7 @@ export const Quiz = () => {
     }, [])
     console.log("IN", quiz)
 
-    const question = quiz === null ? undefined : JSON.parse(quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
+    const question = quiz === null ? undefined : (quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
     console.log(question)
     const checkAnswer = () => {
         if (question.solution === selectedAnswer) {
