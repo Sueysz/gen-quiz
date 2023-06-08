@@ -1,7 +1,29 @@
 
-export const login = (email, password) => {
-    console.log(email, password)
-}
+export const login = async (email, password) => {
+    const userData = {
+        email: email,
+        password: password,
+    };
+
+    try {
+        const response = await fetch("http://localhost:8800/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+        if (!response.ok) {
+            throw new Error('Request failed');
+        }
+
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+
+};
 export const register = async (userName, email, password) => {
     const userData = {
         username: userName,
