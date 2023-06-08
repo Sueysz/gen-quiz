@@ -26,7 +26,7 @@ export const Quiz = () => {
     useEffect(() => {
         getQuiz(slug)
             .then(setQuiz)
-    }, [])
+    }, [slug]);
 
     const question = quiz === null ? undefined :(quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
     
