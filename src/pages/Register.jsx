@@ -4,7 +4,7 @@ import { RegisterPage } from '../components/RegisterPage'
 import { register } from '../api';
 
 export const Register = () => {
-    const [username, setUsername] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -26,7 +26,7 @@ export const Register = () => {
                     type="text"
                     placeholder='Username'
                     value={username}
-                    onChange={(event) => setUsername(event.target.value)}
+                    onChange={(event) => setUserName(event.target.value)}
                 />
                 <input
                     type="password"
