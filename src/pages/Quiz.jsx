@@ -3,7 +3,7 @@ import { getQuiz } from '../api'
 import { Link, useParams, } from 'react-router-dom'
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { fireConfetti } from "../utils/fireConffeti"
-import styled from '@emotion/styled'
+import  styled  from '@emotion/styled'
 import { Answer, Answers } from '../components/Answers'
 import { QuestionContainer } from '../components/QuestionContainer'
 import { BackButton, ValidationButton } from '../components/Buttons'
@@ -19,9 +19,11 @@ const TitleContainer = styled.div`
 
 export const Quiz = () => {
     const { slug } = useParams();
-    const [quiz, setQuiz] = useState(null)
-    const [selectedAnswer, setSelectedAnswer] = useState()
-    const [questionsIndex, setQuestionsIndex] = useState(0)
+    const [quiz, setQuiz] = useState(null);
+    const [selectedAnswer, setSelectedAnswer] = useState();
+    const [questionsIndex, setQuestionsIndex] = useState(0);
+    const [score, setscore] = useState(0);
+    const [incorrectAnswers, setIncorectAnswers] = useState(0);
 
     useEffect(() => {
         getQuiz(slug)
@@ -38,19 +40,22 @@ export const Quiz = () => {
 
     const checkAnswer = useCallback(() => {
         if (question.solution === selectedAnswer) {
-            fireConfetti()
-            setQuestionsIndex((i) => i + 1)
+            fireConfetti();
+            setscore((prevScore) => prevScore + 1);
+
         } else {
-            alert('Oups, recommencez 😓')
-            setQuestionsIndex(0)
+            setIncorectAnswers((prevIncorrectAnswsers) => prevIncorrectAnswsers + 1);
         }
-    },[question, selectedAnswer]);
+        setQuestionsIndex((i) => i + 1);
+    }, [question, selectedAnswer]);
 
     if (question === undefined) {
         return (
             <>
                 <div>
                     Bravo! <button><Link to="/">Retour au Quiz</Link></button>
+                    <p>Score: {score}</p>
+                    <p>Incorrect Answers: {incorrectAnswers}</p>
                 </div>
             </>
         )
