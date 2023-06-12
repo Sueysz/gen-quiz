@@ -1,7 +1,7 @@
 
 import { getQuiz } from '../api'
 import { Link, useParams, } from 'react-router-dom'
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { fireConfetti } from "../utils/fireConffeti"
 import styled from '@emotion/styled'
 import { Answer, Answers } from '../components/Answers'
@@ -28,9 +28,15 @@ export const Quiz = () => {
             .then(setQuiz)
     }, [slug]);
 
-    const question = quiz === null ? undefined :(quiz.questions).data[questionsIndex]//verifier si quiz est null quand le getquiz n'ai pas encore éffectuer ensuite on transforme le json en objet js puis ont récupère le champs
-    
-    const checkAnswer = () => {
+    const question = useMemo(() => {
+        if (quiz === null) {
+            return undefined;
+        } else {
+            return quiz.questions.data[questionsIndex];
+        }
+    }, [quiz, questionsIndex]);
+
+    const checkAnswer = useCallback(() => {
         if (question.solution === selectedAnswer) {
             fireConfetti()
             setQuestionsIndex((i) => i + 1)
@@ -38,7 +44,7 @@ export const Quiz = () => {
             alert('Oups, recommencez 😓')
             setQuestionsIndex(0)
         }
-    }
+    },[question, selectedAnswer]);
 
     if (question === undefined) {
         return (

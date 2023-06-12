@@ -2,7 +2,7 @@ import { login } from '../api'
 import { Link } from 'react-router-dom'
 import { LoginPage } from '../components/LoginPage'
 import { ConfirmButton } from '../components/Buttons'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom/dist'
 
 export const Login = () => {
@@ -10,7 +10,7 @@ export const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
 
-    const handleLogin = async (event) => {
+    const handleLogin = useCallback(async (event) => {
         event.preventDefault();
 
         try {
@@ -19,7 +19,8 @@ export const Login = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    }, [email, password, navigate]);
+
     return <>
         <LoginPage >
             <h1>Welcome back 👻</h1>

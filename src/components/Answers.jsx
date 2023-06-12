@@ -7,7 +7,6 @@ export const Answers = styled.div`
     gap: 20px;
     align-items: center;
 
-
 `
 
 export const Answer = styled.button`

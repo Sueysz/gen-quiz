@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ConfirmButton } from '../components/Buttons'
 import { RegisterPage } from '../components/RegisterPage'
 import { register } from '../api';
@@ -7,8 +7,8 @@ export const Register = () => {
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = async (event) => {
+        
+    const handleSubmit = useCallback (async (event) => {
         event.preventDefault();
 
         try {
@@ -16,7 +16,7 @@ export const Register = () => {
         } catch (error) {
             console.error(error);
         }
-    };
+    } , [username, email, password]);
 
     return <>
         <RegisterPage>
