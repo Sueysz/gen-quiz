@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ConfirmButton } from '../components/Buttons';
-import { RegisterPage } from '../components/RegisterPage';
+import { ErrorMessage, RegisterPage } from '../components/RegisterPage';
 import { register } from '../api';
 import { useNavigate } from 'react-router-dom';
+import { isEmail, isEmpty, isLength } from 'validator';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -31,34 +32,42 @@ export const Register = () => {
                 if (!isLength(password, { min: 8 })) {
                     throw new Error('Le mot de passe doit comporter au moins 8 caractères.');
                 }
+
                 await register(username, email, password);
 
-                setUserName('');
-                setEmail('');
-                setPassword('');
-                setRegistrationError(null);
+                setFormData({
+                    username: '',
+                    email: '',
+                    password: '',
+                    registrationError: null
+                });
+
                 navigate('/login?register=true');
             }
         } catch (error) {
             console.error(error);
-            setRegistrationError('Une erreur est survenue lors de l\'inscription.');
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                registrationError: error.message
+            }));
         }
-    }, [canSubmitForm, username, email, password, navigate]);
+    }, [formData, navigate, email, username, password]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
-        if (name === 'username') {
-            setUserName(value);
-        } else if (name === 'email') {
-            setEmail(value);
-        } else if (name === 'password') {
-            setPassword(value);
-        }
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value
+        }));
     };
 
     useEffect(() => {
-        setCanSubmitForm(username !== '' && email !== '' && password !== '');
+        const canSubmitForm = !isEmpty(username) && isEmail(email) && isLength(password, { min: 8 });
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            canSubmitForm
+        }));
     }, [username, email, password]);
 
     return (
@@ -87,14 +96,11 @@ export const Register = () => {
                         value={email}
                         onChange={handleInputChange}
                     />
-                    <ConfirmButton type="submit" disabled={!canSubmitForm}>
+                    <ConfirmButton type="submit" disabled={!formData.canSubmitForm}>
                         Register
                     </ConfirmButton>
+                    {registrationError && <ErrorMessage>{registrationError}</ErrorMessage>}
                 </form>
-                {registrationError === null && (
-                    <p>Registration successful! Please proceed to login.</p>
-                )}
-                {registrationError && <p>{registrationError}</p>}
             </RegisterPage>
         </>
     );

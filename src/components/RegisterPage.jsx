@@ -21,3 +21,8 @@ export const RegisterPage = styled.div`
         padding-left: 15px;
     }
 `
+
+export const ErrorMessage= styled.p`
+    color: #f41b1b;
+    font-size: 2rem;
+`
