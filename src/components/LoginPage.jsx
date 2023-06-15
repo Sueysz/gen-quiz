@@ -17,5 +17,6 @@ export const LoginPage = styled.div`
         height: 7vh;
         border: 2px solid #222;
         border-radius: 5px;
+        padding-left:15px;
     }
 `

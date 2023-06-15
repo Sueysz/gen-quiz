@@ -1,6 +1,6 @@
 
 import styled from '@emotion/styled';
-import { Card } from '../components/Card';
+import { Card, CardAdd } from '../components/Card';
 import { listQuiz } from '../api'
 import { LoginButton } from '../components/Buttons';
 import { useEffect, useState } from 'react';
@@ -19,6 +19,7 @@ const HomePage = styled.div`
         gap: 20px;
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
 `
@@ -42,6 +43,8 @@ export const Home = () => {
                         <div>{quiz.title}</div>
                     </Card>
                 })}
+
+                <CardAdd style={{backgroundColor:'black'}}> + </CardAdd>
             </div>
         </HomePage>
     </>
