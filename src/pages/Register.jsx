@@ -19,7 +19,18 @@ export const Register = () => {
         event.preventDefault();
 
         try {
-            if (canSubmitForm) {
+            if (formData.canSubmitForm) {
+                if (isEmpty(username)) {
+                    throw new Error('Le nom d\'utilisateur est requis.');
+                }
+
+                if (!isEmail(email)) {
+                    throw new Error('Veuillez fournir une adresse e-mail valide.');
+                }
+
+                if (!isLength(password, { min: 8 })) {
+                    throw new Error('Le mot de passe doit comporter au moins 8 caractères.');
+                }
                 await register(username, email, password);
 
                 setUserName('');
