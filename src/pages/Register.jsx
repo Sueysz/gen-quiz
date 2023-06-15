@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [username, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [canSubmitForm, setCanSubmitForm] = useState(false);
-    const [registrationError, setRegistrationError] = useState(null);
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        registrationError: null
+    });
+
+    const { username, email, password, registrationError } = formData;
 
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
