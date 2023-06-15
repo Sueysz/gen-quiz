@@ -1,49 +1,87 @@
-import { useCallback, useState } from 'react'
-import { ConfirmButton } from '../components/Buttons'
-import { RegisterPage } from '../components/RegisterPage'
+import { useCallback, useEffect, useState } from 'react';
+import { ConfirmButton } from '../components/Buttons';
+import { RegisterPage } from '../components/RegisterPage';
 import { register } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
+    const navigate = useNavigate();
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-        
-    const handleSubmit = useCallback (async (event) => {
+    const [canSubmitForm, setCanSubmitForm] = useState(false);
+    const [registrationError, setRegistrationError] = useState(null);
+
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
         try {
-            await register(username, email, password);
+            if (canSubmitForm) {
+                await register(username, email, password);
+
+                setUserName('');
+                setEmail('');
+                setPassword('');
+                setRegistrationError(null);
+                navigate('/login?register=true');
+            }
         } catch (error) {
             console.error(error);
+            setRegistrationError('Une erreur est survenue lors de l\'inscription.');
         }
-    } , [username, email, password]);
+    }, [canSubmitForm, username, email, password, navigate]);
 
-    return <>
-        <RegisterPage>
-            <h1>Join the Gen-Quiz <br /> community 🐻‍❄️</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder='Username'
-                    value={username}
-                    onChange={(event) => setUserName(event.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder='Password'
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                <input
-                    type="email"
-                    placeholder='Email'
-                    value={email}
-                    onChange={(event)=> setEmail(event.target.value)}
-                />
-                <ConfirmButton type='submit'>Register</ConfirmButton>
-            </form>
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
 
-        </RegisterPage>
-    </>
-}
+        if (name === 'username') {
+            setUserName(value);
+        } else if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        }
+    };
 
+    useEffect(() => {
+        setCanSubmitForm(username !== '' && email !== '' && password !== '');
+    }, [username, email, password]);
+
+    return (
+        <>
+            <RegisterPage>
+                <h1>Join the Gen-Quiz community 🐻‍❄️</h1>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={username}
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleInputChange}
+                    />
+                    <ConfirmButton type="submit" disabled={!canSubmitForm}>
+                        Register
+                    </ConfirmButton>
+                </form>
+                {registrationError === null && (
+                    <p>Registration successful! Please proceed to login.</p>
+                )}
+                {registrationError && <p>{registrationError}</p>}
+            </RegisterPage>
+        </>
+    );
+};
