@@ -31,24 +31,19 @@ export const register = async (userName, email, password) => {
         password: password,
     };
 
-    try {
-        const response = await fetch("http://localhost:8800/register", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+    const response = await fetch("http://localhost:8800/register", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
 
-        if (!response.ok) {
-            throw new Error('Request failed');
-        }
-
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error(error);
+    if (!response.ok) {
+        throw new Error('Request failed');
     }
+
+    return response.json();
 };
 
 
