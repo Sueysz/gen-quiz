@@ -13,7 +13,7 @@ export const LoginButton = styled(Link)`
     transform:scale(0.95);
     text-decoration:none;
     &:hover{
-        transform: scale(1);
+        transform: scale(0.90);
         box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
     }
 `;
@@ -59,7 +59,7 @@ export const BackButton = styled(Link)`
     transform:scale(0.95);
 
     &:hover{
-        transform: scale(1);
+        transform: scale(0.95);
         box-shadow: 1px 10px 5px 5px rgba(0, 0, 0, 0.2);
     }
 `
