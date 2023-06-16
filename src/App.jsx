@@ -7,6 +7,7 @@ import { NotFound } from './pages/NotFound';
 import { Routes, Route} from "react-router-dom";
 
 import './App.css'
+import { FormQuiz } from './pages/FormQuiz';
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
           <Route path='quiz/:slug' element={<Quiz/>} />
           <Route path="*" element={<NotFound />} />
           <Route path='test' element={<Test />}/>
+          <Route path='FormQuiz' element={<FormQuiz />}/>
       </Routes>
     </>
   )
