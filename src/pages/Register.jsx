@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { ConfirmButton } from '../components/Buttons';
 import { ErrorMessage, RegisterPage } from '../components/RegisterPage';
 import { register } from '../api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isEmail, isEmpty, isLength } from 'validator';
+import { StyledIcon } from '../components/Icons';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -73,6 +74,9 @@ export const Register = () => {
     return (
         <>
             <RegisterPage>
+                <Link to={'/'}>
+                    <StyledIcon/>
+                </Link>
                 <h1>Join the Gen-Quiz community 🐻‍❄️</h1>
                 <form onSubmit={handleSubmit}>
                     <input

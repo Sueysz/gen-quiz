@@ -1,28 +1,10 @@
 
-import styled from '@emotion/styled';
+import { HomePage } from '../components/HomePage';
 import { Card, CardAdd } from '../components/Card';
 import { listQuiz } from '../api'
 import { LoginButton } from '../components/Buttons';
 import { useEffect, useState } from 'react';
-
-
-const HomePage = styled.div`
-    h1{
-        text-align:center;
-    }
-
-    .log{
-        display:flex;
-        flex-direction:row-reverse;
-    }
-    .grid{
-        gap: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-`
+import { StyledIcon } from '../components/Icons';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);
@@ -32,7 +14,8 @@ export const Home = () => {
 
     return <>
         <HomePage>
-            <div className='log'>
+            <div className='wrapper'>
+                <StyledIcon />
                 <LoginButton to="/login">Login</LoginButton>
             </div>
             <h1>👇Choisi ton quiz👇</h1>
@@ -44,7 +27,7 @@ export const Home = () => {
                     </Card>
                 })}
 
-                <CardAdd style={{backgroundColor:'black'}}> + </CardAdd>
+                <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> + </CardAdd>
             </div>
         </HomePage>
     </>

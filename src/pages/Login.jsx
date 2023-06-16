@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { LoginPage } from '../components/LoginPage'
 import { ConfirmButton } from '../components/Buttons'
 import { useCallback, useState } from 'react'
+import { StyledIcon } from '../components/Icons'
 
 export const Login = () => {
     const [formData, setFormData] = useState({
@@ -39,6 +40,9 @@ export const Login = () => {
     return (
         <>
             <LoginPage>
+                <Link to={'/'}>
+                    <StyledIcon />
+                </Link>
                 <h1>Welcome back 👻</h1>
                 <form onSubmit={handleLogin}>
                     <input
