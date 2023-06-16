@@ -2,10 +2,9 @@
 import { HomePage } from '../components/HomePage';
 import { Card, CardAdd } from '../components/Card';
 import { listQuiz } from '../api'
-import { LoginButton } from '../components/Buttons';
+import { LoginButton, LogoutButton } from '../components/Buttons';
 import { useEffect, useState } from 'react';
 import { StyledIcon } from '../components/Icons';
-import { Logout } from '../components/Logout';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);
@@ -16,9 +15,13 @@ export const Home = () => {
     return <>
         <HomePage>
             <div className='wrapper'>
-                <StyledIcon />
-                <LoginButton to="/login">Login</LoginButton>
-                <Logout />
+                <div>
+                    <StyledIcon />
+                </div>
+                <div className='userAuthReg'>
+                    <LoginButton to="/login">LogIn </LoginButton>
+                    <LogoutButton to="/"> LogOut </LogoutButton>
+                </div>
             </div>
             <h1>👇Choisi ton quiz👇</h1>
 

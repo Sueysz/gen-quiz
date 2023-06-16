@@ -9,6 +9,13 @@ export const HomePage = styled.div`
         display:flex;
         justify-content:space-between;
     }
+
+    .userAuthReg{
+        display:flex;
+        padding-top:10px;
+        padding-right:10px;
+        gap:10px;
+    }
     
     .grid{
         gap: 20px;
