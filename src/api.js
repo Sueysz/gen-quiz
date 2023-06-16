@@ -24,32 +24,62 @@ export const login = async (email, password) => {
     }
 
 };
-export const register = async (userName, email, password) => {
+
+    export const register = async (userName, email, password) => {
     const userData = {
         username: userName,
         email: email,
         password: password,
     };
 
-    const response = await fetch("http://localhost:8800/register", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
+    try {
+        const response = await fetch("http://localhost:8800/register", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
 
-    if (!response.ok) {
-        throw new Error('Request failed');
+        if (!response.ok) {
+            throw new Error('Registration request failed');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error during registration:', error.message);
     }
-
-    return response.json();
 };
 
 
-export const getAuth = () => {
-    return { username: "stormy" }
-}
+
+export const getAuth = async (email, password) => {
+    const userData = {
+        email: email,
+        password: password,
+    };
+
+    try {
+        const response = await fetch("http://localhost:8800/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Login request failed');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur lors de la connexion :', error.message);
+    }
+};
+
 export const listQuiz = async () => {
     return await fetch("http://localhost:8800/quiz").then((res) => {
         return res.json()
@@ -60,5 +90,5 @@ export const getQuiz = async (slug) => {
     return await fetch(`http://localhost:8800/quiz/${slug}`).then((res) => {
         return res.json()
     })
-}
+};
 
