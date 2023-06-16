@@ -21,6 +21,7 @@ export const login = async (email, password) => {
         console.log(data);
     } catch (error) {
         console.error(error);
+        alert("error durring login")
     }
 
 };
@@ -49,6 +50,7 @@ export const login = async (email, password) => {
         return data;
     } catch (error) {
         console.error('Error during registration:', error.message);
+        alert("error during registration")
     }
 };
 
@@ -77,6 +79,7 @@ export const getAuth = async (email, password) => {
         return data;
     } catch (error) {
         console.error('Erreur lors de la connexion :', error.message);
+        alert("error durring authentification")
     }
 };
 
