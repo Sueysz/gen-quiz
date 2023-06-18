@@ -5,7 +5,6 @@ export const login = async (email, password) => {
         password: password,
     };
 
-    try {
         const response = await fetch("http://localhost:8800/login", {
             method: 'POST',
             headers: {
@@ -19,10 +18,7 @@ export const login = async (email, password) => {
 
         const data = await response.json();
         console.log(data);
-    } catch (error) {
-        console.error(error);
-        alert("error durring login")
-    }
+    
 
 };
 
@@ -33,7 +29,6 @@ export const register = async (userName, email, password) => {
         password: password,
     };
 
-    try {
         const response = await fetch("http://localhost:8800/register", {
             method: 'POST',
             headers: {
@@ -48,10 +43,7 @@ export const register = async (userName, email, password) => {
 
         const data = await response.json();
         return data;
-    } catch (error) {
-        console.error('Error during registration:', error.message);
-        alert("error during registration")
-    }
+    
 };
 
 
@@ -62,7 +54,6 @@ export const getAuth = async (email, password) => {
         password: password,
     };
 
-    try {
         const response = await fetch("http://localhost:8800/login", {
             method: 'POST',
             headers: {
@@ -77,10 +68,7 @@ export const getAuth = async (email, password) => {
 
         const data = await response.json();
         return data;
-    } catch (error) {
-        console.error('Erreur lors de la connexion :', error.message);
-        alert("error durring authentification")
-    }
+    
 };
 
 export const listQuiz = async () => {
@@ -96,15 +84,10 @@ export const getQuiz = async (slug) => {
 };
 
 export const logout = async () => {
-    try {
         const response = await fetch("http://localhost:8800/logout", {
             method: "POST",
             credentials: "include",
         });
         const data = await response.json();
         return { ok: response.ok, data };
-    } catch (error) {
-        console.error("Erreur lors de la déconnexion :", error);
-        alert(error);
-    }
 };
