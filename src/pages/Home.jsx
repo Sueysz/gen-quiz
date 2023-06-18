@@ -5,6 +5,7 @@ import { listQuiz } from '../api'
 import { LoginButton, LogoutButton } from '../components/Buttons';
 import { useEffect, useState } from 'react';
 import { StyledIcon } from '../components/Icons';
+import { Logout } from '../components/Logout';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);
@@ -20,7 +21,7 @@ export const Home = () => {
                 </div>
                 <div className='userAuthReg'>
                     <LoginButton to="/login">LogIn </LoginButton>
-                    <LogoutButton to="/"> LogOut </LogoutButton>
+                    <Logout/>
                 </div>
             </div>
             <h1>👇Choisi ton quiz👇</h1>

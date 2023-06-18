@@ -26,7 +26,7 @@ export const login = async (email, password) => {
 
 };
 
-    export const register = async (userName, email, password) => {
+export const register = async (userName, email, password) => {
     const userData = {
         username: userName,
         email: email,
@@ -95,3 +95,16 @@ export const getQuiz = async (slug) => {
     })
 };
 
+export const logout = async () => {
+    try {
+        const response = await fetch("http://localhost:8800/logout", {
+            method: "POST",
+            credentials: "include",
+        });
+        const data = await response.json();
+        return { ok: response.ok, data };
+    } catch (error) {
+        console.error("Erreur lors de la déconnexion :", error);
+        alert(error);
+    }
+};
