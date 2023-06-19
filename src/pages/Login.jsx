@@ -4,8 +4,10 @@ import { LoginPage } from '../components/LoginPage'
 import { ConfirmButton } from '../components/Buttons'
 import { useCallback, useState } from 'react'
 import { StyledIcon } from '../components/Icons'
+import { useAuth } from '../utils/AuthProvider'
 
 export const Login = () => {
+    const { handleRefreshPage} = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -34,6 +36,7 @@ export const Login = () => {
             localStorage.setItem('token',token);
 
             navigate('/');
+            handleRefreshPage();
         } catch (error) {
             console.error(error);
             alert(error)

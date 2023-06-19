@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api";
 import { LogoutButton } from "./Buttons";
+import { useAuth } from "../utils/AuthProvider";
 
 export const Logout = () => {
+    const { handleRefreshPage } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -14,6 +16,7 @@ export const Logout = () => {
             if (ok) {
                 console.log("Logout successful");
                 navigate("/login");
+                handleRefreshPage();
             } else {
                 console.error("Logout failed");
                 alert("Logout failed");
