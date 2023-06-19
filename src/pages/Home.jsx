@@ -24,11 +24,11 @@ export const Home = () => {
                 <div className='userAuthReg'>
                     {isLoggedIn ? (
                         <>
-                        <Logout />
-                        <ProfileUser to="/profile"> Profile</ProfileUser>
+                            <Logout />
+                            <ProfileUser to="/profile"> Profile</ProfileUser>
                         </>
                     ) : (
-                            <LoginButton to="/login">LogIn </LoginButton>
+                        <LoginButton to="/login">LogIn </LoginButton>
                     )}
 
                 </div>
@@ -36,12 +36,22 @@ export const Home = () => {
             <h1>👇Choisi ton quiz👇</h1>
 
             <div className='grid'>
-                <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> + </CardAdd>
-                {quizList.map(quiz => {
-                    return <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                        <div>{quiz.title}</div>
-                    </Card>
-                })}
+                {isLoggedIn ? (
+                    <>
+                        <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> + </CardAdd>
+                        {quizList.map(quiz => (
+                            <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                                <div>{quiz.title}</div>
+                            </Card>
+                        ))}
+                    </>
+                ) : (
+                    quizList.map(quiz => (
+                        <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                            <div>{quiz.title}</div>
+                        </Card>
+                    ))
+                )}
             </div>
         </HomePage>
     </>
