@@ -9,6 +9,8 @@ export const Logout = () => {
         try {
             const { ok } = await logout();
 
+            localStorage.removeItem("token");
+
             if (ok) {
                 console.log("Logout successful");
                 navigate("/login");

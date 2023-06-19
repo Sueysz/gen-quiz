@@ -5,21 +5,20 @@ export const login = async (email, password) => {
         password: password,
     };
 
-        const response = await fetch("http://localhost:8800/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
-        if (!response.ok) {
-            throw new Error('Request failed');
-        }
+    const response = await fetch("http://localhost:8800/login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(userData),
+    });
+    if (!response.ok) {
+        throw new Error('Request failed');
+    }
 
-        const data = await response.json();
-        console.log(data);
-    
-
+    const { token } = await response.json();
+    return token;
 };
 
 export const register = async (userName, email, password) => {
@@ -29,21 +28,21 @@ export const register = async (userName, email, password) => {
         password: password,
     };
 
-        const response = await fetch("http://localhost:8800/register", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+    const response = await fetch("http://localhost:8800/register", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
 
-        if (!response.ok) {
-            throw new Error('Registration request failed');
-        }
+    if (!response.ok) {
+        throw new Error('Registration request failed');
+    }
 
-        const data = await response.json();
-        return data;
-    
+    const data = await response.json();
+    return data;
+
 };
 
 
@@ -54,21 +53,21 @@ export const getAuth = async (email, password) => {
         password: password,
     };
 
-        const response = await fetch("http://localhost:8800/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+    const response = await fetch("http://localhost:8800/login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
 
-        if (!response.ok) {
-            throw new Error('Login request failed');
-        }
+    if (!response.ok) {
+        throw new Error('Login request failed');
+    }
 
-        const data = await response.json();
-        return data;
-    
+    const data = await response.json();
+    return data;
+
 };
 
 export const listQuiz = async () => {
@@ -84,10 +83,10 @@ export const getQuiz = async (slug) => {
 };
 
 export const logout = async () => {
-        const response = await fetch("http://localhost:8800/logout", {
-            method: "POST",
-            credentials: "include",
-        });
-        const data = await response.json();
-        return { ok: response.ok, data };
+    const response = await fetch("http://localhost:8800/logout", {
+        method: "POST",
+        credentials: "include",
+    });
+    const data = await response.json();
+    return { ok: response.ok, data };
 };

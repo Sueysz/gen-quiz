@@ -25,15 +25,18 @@ export const Login = () => {
         event.preventDefault();
 
         try {
-            await login(formData.email, formData.password);
+            const token =await login(formData.email, formData.password);
             setFormData({
                 email: '',
                 password: ''
             });
 
+            localStorage.setItem('token',token);
+
             navigate('/');
         } catch (error) {
             console.error(error);
+            alert(error)
         }
     }, [formData, navigate]);
 
