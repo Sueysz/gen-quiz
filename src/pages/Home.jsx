@@ -17,7 +17,7 @@ export const Home = () => {
         <HomePage>
             <div className='wrapper'>
                 <div>
-                    <StyledIcon />
+                    <StyledIcon src='/public/icons/logo.png' alt='logo' />
                 </div>
                 <div className='userAuthReg'>
                     <LoginButton to="/login">LogIn </LoginButton>

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { FaQuestion } from "react-icons/fa";
 
-export const StyledIcon = styled(FaQuestion)`
+export const StyledIcon = styled.img`
     width:35px;
     height:35px;
     color:black;

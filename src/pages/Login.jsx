@@ -44,7 +44,7 @@ export const Login = () => {
         <>
             <LoginPage>
                 <Link to={'/'}>
-                    <StyledIcon />
+                    <StyledIcon src='/public/icons/logo.png' alt='logo' />
                 </Link>
                 <h1>Welcome back 👻</h1>
                 <form onSubmit={handleLogin}>
