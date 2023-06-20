@@ -38,7 +38,7 @@ export const Home = () => {
             <div className='grid'>
                 {isLoggedIn ? (
                     <>
-                        <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> + </CardAdd>
+                        <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
                         {quizList.map(quiz => (
                             <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
                                 <div>{quiz.title}</div>
