@@ -53,7 +53,7 @@ export const Quiz = () => {
         return (
             <>
                 <div>
-                    Bravo! <button><Link to="/">Retour au Quiz</Link></button>
+                    Bravo! <button><Link to="/">back to Quiz</Link></button>
                     <p>Score: {score}</p>
                     <p>Incorrect Answers: {incorrectAnswers}</p>
                 </div>

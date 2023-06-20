@@ -33,7 +33,7 @@ export const Home = () => {
 
                 </div>
             </div>
-            <h1>👇Choisi ton quiz👇</h1>
+            <h1>👇Choose Your Quiz👇</h1>
 
             <div className='grid'>
                 {isLoggedIn ? (
