@@ -90,3 +90,26 @@ export const logout = async () => {
     const data = await response.json();
     return { ok: response.ok, data };
 };
+
+export const createQuiz = async (title,color,questions) => {
+    const quizData ={
+        title:title,
+        color:color,
+        questions:questions,
+    };
+
+    const response = await fetch ("http://localhost:8800/createQuiz",{
+        method: "POST",
+        headers:{
+            'content-type' : 'application/json'
+        },
+        body: JSON.stringify(quizData)
+    });
+
+    if (!response.ok) {
+        throw new Error('Registration request failed');
+    }
+
+    const data = await response.json();
+    return data;
+}
