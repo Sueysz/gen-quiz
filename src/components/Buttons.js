@@ -13,6 +13,7 @@ export const LoginButton = styled(Link)`
     transform:scale(0.95);
     text-decoration:none;
     justify-content:center;
+    margin-bottom: 10px;
     &:hover{
         transform: scale(0.90);
         box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
@@ -31,6 +32,7 @@ export const LogoutButton = styled(Link)`
     transform:scale(0.95);
     text-decoration:none;
     justify-content:center;
+    margin-bottom: 10px;
     &:hover{
         transform: scale(0.90);
         box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
@@ -48,6 +50,7 @@ export const ProfileUser = styled(Link)`
     transform:scale(0.95);
     text-decoration:none;
     justify-content:center;
+    margin-bottom: 10px;
     &:hover{
         transform: scale(0.90);
         box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
