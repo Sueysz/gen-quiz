@@ -19,7 +19,7 @@ export const Home = () => {
         <HomePage>
             <div className='wrapper'>
                 <div>
-                    <StyledIcon src='/public/icons/logo.png' alt='logo' />
+                    <StyledIcon src='/icons/logo.png' alt='logo' />
                 </div>
                 <div className='userAuthReg'>
                     {isLoggedIn ? (

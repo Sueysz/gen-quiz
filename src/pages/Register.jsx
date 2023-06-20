@@ -75,7 +75,7 @@ export const Register = () => {
         <>
             <RegisterPage>
                 <Link to={'/'}>
-                    <StyledIcon src='/public/icons/logo.png' alt='logo' />
+                    <StyledIcon src='/icons/logo.png' alt='logo' />
                 </Link>
                 <h1>Join the Gen-Quiz community 🐻‍❄️</h1>
                 <form onSubmit={handleSubmit}>
