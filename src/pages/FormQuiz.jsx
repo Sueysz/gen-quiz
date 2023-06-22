@@ -6,29 +6,30 @@ import { useCallback, useState } from "react"
 import { createQuiz } from "../api"
 
 
+
 export const FormQuiz = () => {
     const [quizData, setQuizData] = useState({
-        title:"",
-        color:"#000000",
-        questions:[],
+        title: "",
+        color: "#000000",
+        questions: [],
     })
 
     const { title, color, questions } = quizData
 
-    const handleInputChange =(event)=> {
-        const {name, value} = event.target;
-        setQuizData({...quizData,[name]: value});
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setQuizData({ ...quizData, [name]: value });
     }
 
-    const handleSubmit =useCallback (async (event) =>{
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
         console.log(quizData)
-        await createQuiz( title, color, questions)
+        await createQuiz(title, color, questions)
         setQuizData({
-            title:'',
-            color:'#000000',
-            questions:[]
+            title: '',
+            color: '#000000',
+            questions: []
         })
 
     })
@@ -53,7 +54,6 @@ export const FormQuiz = () => {
                         value={quizData.color}
                         onChange={handleInputChange}
                     />
-                    
                     <textarea 
                     name="questions" 
                     cols="30" 
@@ -61,7 +61,7 @@ export const FormQuiz = () => {
                     value={quizData.questions}
                     onChange={handleInputChange}
                     />
-
+                    
                     <ConfirmButton type="submit"> Create </ConfirmButton>
                 </form>
             </FormPage>
