@@ -109,7 +109,5 @@ export const createQuiz = async (title,color,questions) => {
     if (!response.ok) {
         throw new Error('Registration request failed');
     }
-
-    const data = await response.json();
-    return data;
+    return await response.json();;
 }
