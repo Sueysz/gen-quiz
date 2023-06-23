@@ -20,7 +20,7 @@ const TitleContainer = styled.div`
 export const Quiz = () => {
     const { slug } = useParams();
     const [quiz, setQuiz] = useState(null);
-    const [selectedAnswer, setSelectedAnswer] = useState();
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [questionsIndex, setQuestionsIndex] = useState(0);
     const [score, setscore] = useState(0);
     const [incorrectAnswers, setIncorectAnswers] = useState(0);
@@ -34,7 +34,7 @@ export const Quiz = () => {
         if (quiz === null) {
             return undefined;
         } else {
-            return quiz.questions.data[questionsIndex];
+            return quiz.questions[questionsIndex];
         }
     }, [quiz, questionsIndex]);
 
