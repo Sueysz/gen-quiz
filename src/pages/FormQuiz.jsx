@@ -6,6 +6,7 @@ import { useState } from "react"
 import { createQuiz } from "../api"
 import { useFormik } from "formik"
 import * as Yup from 'yup';
+import Filter from 'bad-words';
 
 export const FormQuiz = () => {
     const [quizData, setQuizData] = useState({
@@ -58,21 +59,24 @@ export const FormQuiz = () => {
     const handleQuestionChange = (event, index) => {
         const { value } = event.target;
         const updatedQuestions = [...formik.values.questions];
-        updatedQuestions[index].question = value;
+        const filter = new Filter();
+        updatedQuestions[index].question = filter.clean(value);
         formik.setFieldValue("questions", updatedQuestions);
     };
 
     const handleAnswerChange = (event, questionIndex, answerIndex) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
-        questions[questionIndex].answers[answerIndex] = value;
+        const filter = new Filter();
+        questions[questionIndex].answers[answerIndex] = filter.clean(value);
         formik.setFieldValue("questions", questions);
     }
 
     const handleSolutionChange = (event, index) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
-        questions[index].solution = value;
+        const filter = new Filter();
+        questions[index].solution = filter.clean(value);
         formik.setFieldValue("questions", questions);
     }
 

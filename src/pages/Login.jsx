@@ -5,14 +5,18 @@ import { ConfirmButton } from '../components/Buttons'
 import { useCallback, useState } from 'react'
 import { StyledIcon } from '../components/Icons'
 import { useAuth } from '../utils/AuthProvider'
+import * as Yup from "yup"
+import Filter from "bad-words"
 
 export const Login = () => {
     const { handleRefreshPage} = useAuth();
+    const [validationErrors, setValidationErrors]= useState({});
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
+    const filter = new Filter();
     const navigate = useNavigate();
 
     const handleInputChange = useCallback((event) => {
@@ -27,6 +31,12 @@ export const Login = () => {
         event.preventDefault();
 
         try {
+            await loginSchema.validate(formData, {abortEarly: false});
+
+            if (filter.isProfane(formData.email) || filter.isProfane(formData.password)){
+                throw new Error('Please use appropriate language in your credentials.')
+            }
+
             const token =await login(formData.email, formData.password);
             setFormData({
                 email: '',
@@ -38,10 +48,23 @@ export const Login = () => {
             navigate('/');
             handleRefreshPage();
         } catch (error) {
-            console.error(error);
-            alert(error)
+            if (error instanceof Yup.ValidationError){
+                const errors = {};
+                error.inner.forEach((err)=>{
+                    errors[err.path] = err.message;
+                });
+                setValidationErrors(errors);
+            }else{
+                console.error(error);
+                alert(error)
+            }
         }
     }, [formData, navigate]);
+
+    const loginSchema = Yup.object().shape({
+        email: Yup.string().email('Invalid email').required('Email is required'),
+        password: Yup.string().required('Password is required'),
+    });
 
     return (
         <>
@@ -58,6 +81,7 @@ export const Login = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                     />
+                    {validationErrors.email && <span>{validationErrors.email}</span>}
                     <input
                         type="password"
                         name="password"
@@ -65,6 +89,7 @@ export const Login = () => {
                         value={formData.password}
                         onChange={handleInputChange}
                     />
+                    {validationErrors.password && <span>{validationErrors.password}</span>}
                     <ConfirmButton type="submit">Login</ConfirmButton>
                     <span>
                         Don't have an account? <Link to="/register">Register</Link>
