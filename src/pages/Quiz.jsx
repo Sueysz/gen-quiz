@@ -6,7 +6,7 @@ import { fireConfetti } from "../utils/fireConffeti"
 import  styled  from '@emotion/styled'
 import { Answer, Answers } from '../components/Answers'
 import { QuestionContainer } from '../components/QuestionContainer'
-import { BackButton, ValidationButton } from '../components/Buttons'
+import { LinkButton, ValidationButton } from '../components/Buttons'
 
 const Container = styled.div`
     height:100vh;
@@ -67,7 +67,7 @@ export const Quiz = () => {
 
                 <div id='header'>
                     <TitleContainer>
-                        <BackButton className='back' to="/">Back</BackButton>
+                        <LinkButton className='back' to="/">Back</LinkButton>
                         <h1>{quiz ? quiz.title : ""}</h1>
                     </TitleContainer>
                 </div>

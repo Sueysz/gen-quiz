@@ -12,13 +12,5 @@ export const FormPage = styled.div`
         align-items:center;
     }
 
-    input{
-        width: 30vw;
-        height: 7vh;
-        border: 2px solid #222;
-        border-radius: 5px;
-        padding-left:15px;
-    }
-
     
 `

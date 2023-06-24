@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 
-export const LoginButton = styled(Link)`
+export const LinkButton = styled(Link)`
     display: flex;
     padding: 20px;
     cursor: pointer;
@@ -14,43 +14,7 @@ export const LoginButton = styled(Link)`
     text-decoration:none;
     justify-content:center;
     margin-bottom: 10px;
-    &:hover{
-        transform: scale(0.90);
-        box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
-    }
-`;
-
-export const LogoutButton = styled(Link)`
-    display: flex;
-    padding: 20px;
-    cursor: pointer;
-    font-size:1.5rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    border-radius:15px;
-    width:65px;
-    transition: 100ms;
-    transform:scale(0.95);
-    text-decoration:none;
-    justify-content:center;
-    margin-bottom: 10px;
-    &:hover{
-        transform: scale(0.90);
-        box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
-    }
-`;
-export const ProfileUser = styled(Link)`
-    display: flex;
-    padding: 20px;
-    cursor: pointer;
-    font-size:1.5rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    border-radius:15px;
-    width:65px;
-    transition: 100ms;
-    transform:scale(0.95);
-    text-decoration:none;
-    justify-content:center;
-    margin-bottom: 10px;
+    color: black;
     &:hover{
         transform: scale(0.90);
         box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
@@ -79,26 +43,5 @@ export const ValidationButton = styled.button`
 
     &:hover{
         background-color:rgba(1,1,1,0.4);
-    }
-`
-
-export const BackButton = styled(Link)`
-    cursor: pointer;
-    padding: 20px;
-    margin: 20px;
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    font-size: 2rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    border: none;
-    color: #fafafa;
-    text-decoration: none ;
-    transition: 100ms;
-    transform:scale(0.95);
-
-    &:hover{
-        transform: scale(0.95);
-        box-shadow: 1px 10px 5px 5px rgba(0, 0, 0, 0.2);
     }
 `

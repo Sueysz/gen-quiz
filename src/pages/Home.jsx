@@ -2,7 +2,7 @@
 import { HomePage } from '../components/HomePage';
 import { Card, CardAdd } from '../components/Card';
 import { listQuiz } from '../api';
-import { LoginButton, ProfileUser } from '../components/Buttons';
+import { LinkButton } from '../components/Buttons';
 import { useEffect, useState } from 'react';
 import { StyledIcon } from '../components/Icons';
 import { Logout } from '../components/Logout';
@@ -25,10 +25,10 @@ export const Home = () => {
                     {isLoggedIn ? (
                         <>
                             <Logout />
-                            <ProfileUser to="/profile"> Profile</ProfileUser>
+                            <LinkButton to="/profile"> Profile</LinkButton>
                         </>
                     ) : (
-                        <LoginButton to="/login">LogIn </LoginButton>
+                        <LinkButton to="/login">LogIn </LinkButton>
                     )}
 
                 </div>

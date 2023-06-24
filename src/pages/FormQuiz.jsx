@@ -96,7 +96,6 @@ export const FormQuiz = () => {
                 <StyledIcon src="/icons/logo.png" alt="logo" />
             </Link>
             <h1>🫣Add your Quiz🫣</h1>
-            <button type="button" onClick={addQuestion}>Add a question</button>
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="title">Title:</label>
@@ -195,6 +194,8 @@ export const FormQuiz = () => {
                         </div>
                     </div>
                 ))}
+                
+                <button type="button" onClick={addQuestion}>Add a question</button>
 
                 <ConfirmButton type="submit">Create</ConfirmButton>
             </form>

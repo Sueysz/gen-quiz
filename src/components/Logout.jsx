@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api";
-import { LogoutButton } from "./Buttons";
+import { LinkButton } from "./Buttons";
 import { useAuth } from "../utils/AuthProvider";
 
 export const Logout = () => {
@@ -27,5 +27,5 @@ export const Logout = () => {
         }
     };
 
-    return <LogoutButton onClick={handleLogout}>LogOut</LogoutButton>;
+    return <LinkButton onClick={handleLogout}>LogOut</LinkButton>;
 };
