@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom"
-import { ConfirmButton } from "../components/Buttons"
-import { FormPage } from "../components/FormPage"
-import { StyledIcon } from "../components/Icons"
-import { useState } from "react"
-import { createQuiz } from "../api"
-import { useFormik } from "formik"
-import * as Yup from 'yup';
 import Filter from 'bad-words';
+import * as Yup from 'yup';
+import { Link } from "react-router-dom"
+import { FormPage } from "../components/FormPage"
+import { useState } from "react"
+import { useFormik } from "formik"
+import { StyledIcon } from "../components/Icons"
+import { createQuiz } from "../api"
+import { ConfirmButton } from "../components/Buttons"
 
 export const FormQuiz = () => {
     const [quizData, setQuizData] = useState({

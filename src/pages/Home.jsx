@@ -1,12 +1,12 @@
 
-import { HomePage } from '../components/HomePage';
-import { Card, CardAdd } from '../components/Card';
-import { listQuiz } from '../api';
-import { LinkButton } from '../components/Buttons';
-import { useEffect, useState } from 'react';
-import { StyledIcon } from '../components/Icons';
 import { Logout } from '../components/Logout';
 import { useAuth } from '../utils/AuthProvider';
+import { HomePage } from '../components/HomePage';
+import { listQuiz } from '../api';
+import { LinkButton } from '../components/Buttons';
+import { StyledIcon } from '../components/Icons';
+import { Card, CardAdd } from '../components/Card';
+import { useEffect, useState } from 'react';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);

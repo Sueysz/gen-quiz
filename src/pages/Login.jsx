@@ -1,12 +1,12 @@
-import { login } from '../api'
-import { Link, useNavigate } from 'react-router-dom'
-import { LoginPage } from '../components/LoginPage'
-import { ConfirmButton } from '../components/Buttons'
-import { useCallback, useState } from 'react'
-import { StyledIcon } from '../components/Icons'
-import { useAuth } from '../utils/AuthProvider'
-import * as Yup from "yup"
 import Filter from "bad-words"
+import * as Yup from "yup"
+import { login } from '../api'
+import { useAuth } from '../utils/AuthProvider'
+import { LoginPage } from '../components/LoginPage'
+import { StyledIcon } from '../components/Icons'
+import { ConfirmButton } from '../components/Buttons'
+import { Link, useNavigate } from 'react-router-dom'
+import { useCallback, useState } from 'react'
 
 export const Login = () => {
     const { handleRefreshPage} = useAuth();

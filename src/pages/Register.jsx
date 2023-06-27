@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ConfirmButton } from '../components/Buttons';
-import { ErrorMessage, RegisterPage } from '../components/RegisterPage';
-import { register } from '../api';
-import { Link, useNavigate } from 'react-router-dom';
-import { isEmail, isEmpty, isLength } from 'validator';
-import { StyledIcon } from '../components/Icons';
-import * as Yup from 'yup';
 import Filter from 'bad-words'; 
+import * as Yup from 'yup';
+import { register } from '../api';
+import { StyledIcon } from '../components/Icons';
+import { ConfirmButton } from '../components/Buttons';
+import { Link, useNavigate } from 'react-router-dom';
+import { ErrorMessage, RegisterPage } from '../components/RegisterPage';
+import { isEmail, isEmpty, isLength } from 'validator';
+import { useCallback, useEffect, useState } from 'react';
 
 export const Register = () => {
     const navigate = useNavigate();

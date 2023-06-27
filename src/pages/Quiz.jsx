@@ -1,12 +1,12 @@
 
-import { getQuiz } from '../api'
-import { Link, useParams, } from 'react-router-dom'
-import { useState, useEffect, useMemo, useCallback } from "react"
-import { fireConfetti } from "../utils/fireConffeti"
 import  styled  from '@emotion/styled'
+import { getQuiz } from '../api'
+import { fireConfetti } from "../utils/fireConffeti"
 import { Answer, Answers } from '../components/Answers'
+import { Link, useParams, } from 'react-router-dom'
 import { QuestionContainer } from '../components/QuestionContainer'
 import { LinkButton, ValidationButton } from '../components/Buttons'
+import { useState, useEffect, useMemo, useCallback } from "react"
 
 const Container = styled.div`
     height:100vh;
