@@ -78,6 +78,7 @@ export const Login = () => {
                         type="text"
                         name="email"
                         placeholder="Email"
+                        autoComplete="on"
                         value={formData.email}
                         onChange={handleInputChange}
                     />
@@ -86,6 +87,7 @@ export const Login = () => {
                         type="password"
                         name="password"
                         placeholder="Password"
+                        autoComplete="on"
                         value={formData.password}
                         onChange={handleInputChange}
                     />
