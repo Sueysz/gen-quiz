@@ -9,13 +9,11 @@ import { Routes, Route } from "react-router-dom";
 
 import './App.css'
 import { FormQuiz } from './pages/FormQuiz';
-import { AuthProvider } from './utils/AuthProvider';
 
 const App = () => {
 
   return (
     <>
-      <AuthProvider>
         <Routes>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
@@ -26,7 +24,6 @@ const App = () => {
           <Route path='FormQuiz' element={<FormQuiz />} />
           <Route path='Profile' element={<Profile />} />
         </Routes>
-      </AuthProvider>
     </>
   )
 }
