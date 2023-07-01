@@ -1,21 +1,22 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [refreshPage , setRefreshPage] = useState(false);
+    
+    const providerValue = useMemo(() => ({
+        isLoggedIn,
+        handleRefreshPage: () => setRefreshPage(prevState => !prevState)
+    }), [isLoggedIn, setRefreshPage]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token);
     }, [refreshPage]);
-    
-    const handleRefreshPage = () =>{
-        setRefreshPage(prevState => !prevState);
-    }
     return (
-        <AuthContext.Provider value={{ isLoggedIn, handleRefreshPage }}>
+        <AuthContext.Provider value={providerValue}>
             { children }
         </AuthContext.Provider>
     );

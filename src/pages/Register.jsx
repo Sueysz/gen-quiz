@@ -108,6 +108,7 @@ export const Register = () => {
                         type="text"
                         name="username"
                         placeholder="Username"
+                        autoComplete='on'
                         value={username}
                         onChange={handleInputChange}
                     />
@@ -116,6 +117,7 @@ export const Register = () => {
                         type="password"
                         name="password"
                         placeholder="Password"
+                        autoComplete='on'
                         value={password}
                         onChange={handleInputChange}
                     />
@@ -124,6 +126,7 @@ export const Register = () => {
                         type="email"
                         name="email"
                         placeholder="Email"
+                        autoComplete='on'
                         value={email}
                         onChange={handleInputChange}
                     />

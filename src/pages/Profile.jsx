@@ -3,7 +3,6 @@ import { useAuth } from '../utils/AuthProvider';
 
 export const Profile = () => {
     const { user } = useAuth();
-    console.log(user)
 
     if (!user) {
         return <p>Loading...</p>;
