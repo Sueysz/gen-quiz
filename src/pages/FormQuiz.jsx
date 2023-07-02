@@ -30,7 +30,7 @@ export const FormQuiz = () => {
                     .of(Yup.string().required("Answer is required"))
                     .min(3, "Exactly 3 answers are required")
                     .max(3, "Exactly 3 answers are required"),
-                solution: Yup.number().required("Solution is required").oneOf([1, 2, 3], "Invalid solution")
+                solution: Yup.number().required("Solution is required").oneOf([0, 1, 2], "Invalid solution")
             })
         )
     });
@@ -178,11 +178,10 @@ export const FormQuiz = () => {
                             <label htmlFor={`solution-${index}`}>Solution:</label>
                             <select
                                 name={`questions[${index}].solution`}
-                                value=""
+                                value={formik.values.questions[index].solution}
                                 onChange={(event) => handleSolutionChange(event, index)}
-                                placeholder='Select a solution'
                             >
-                                <option value="">
+                                <option value="" disabled>
                                     Select a solution
                                 </option>
                                 {new Array(3).fill(null).map((_, solution) => (
