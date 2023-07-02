@@ -1,4 +1,3 @@
-import Filter from "bad-words"
 import * as Yup from "yup"
 import { login } from '../api'
 import { useAuth } from '../utils/AuthProvider'
@@ -16,7 +15,6 @@ export const Login = () => {
         password: ''
     });
 
-    const filter = new Filter();
     const navigate = useNavigate();
 
     const handleInputChange = useCallback((event) => {
@@ -32,10 +30,6 @@ export const Login = () => {
 
         try {
             await loginSchema.validate(formData, {abortEarly: false});
-
-            if (filter.isProfane(formData.email) || filter.isProfane(formData.password)){
-                throw new Error('Please use appropriate language in your credentials.')
-            }
 
             const token =await login(formData.email, formData.password);
             setFormData({

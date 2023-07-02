@@ -1,4 +1,3 @@
-import Filter from 'bad-words'; 
 import * as Yup from 'yup';
 import { register } from '../api';
 import { StyledIcon } from '../components/Icons';
@@ -10,7 +9,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 export const Register = () => {
     const navigate = useNavigate();
-    const filter = new Filter();
     const [validationErrors, setValidationErrors] = useState({});
     const [formData, setFormData] = useState({
         username: '',
@@ -37,11 +35,6 @@ export const Register = () => {
 
             if (!isLength(password, { min: 8 })) {
                 throw new Error('Le mot de passe doit comporter au moins 8 caractères.');
-            }
-
-            const isContentValid = filter.isProfane(username) || filter.isProfane(email);
-            if (isContentValid) {
-                throw new Error('The content you provided is inappropriate.')
             }
 
             await register(username, email, password);
