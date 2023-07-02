@@ -1,4 +1,3 @@
-import Filter from 'bad-words';
 import * as Yup from 'yup';
 import { Link } from "react-router-dom"
 import { FormPage } from "../components/FormPage"
@@ -16,7 +15,7 @@ export const FormQuiz = () => {
             {
                 question: "",
                 answers: ["", "", ""],
-                solution: ""
+                solution: 0,
             }
         ]
     });
@@ -29,9 +28,9 @@ export const FormQuiz = () => {
                 question: Yup.string().required("Question is required"),
                 answers: Yup.array()
                     .of(Yup.string().required("Answer is required"))
-                    .min(1, "At least 1 answer is required")
-                    .max(3, "Maximum of 3 answers allowed"),
-                solution: Yup.string().required("Solution is required")
+                    .min(3, "Exactly 3 answers are required")
+                    .max(3, "Exactly 3 answers are required"),
+                solution: Yup.number().required("Solution is required").oneOf([1, 2, 3], "Invalid solution")
             })
         )
     });
@@ -49,7 +48,7 @@ export const FormQuiz = () => {
                     {
                         question: "",
                         answers: ["", "", ""],
-                        solution: "",
+                        solution: 0,
                     }
                 ]
             })
@@ -59,24 +58,21 @@ export const FormQuiz = () => {
     const handleQuestionChange = (event, index) => {
         const { value } = event.target;
         const updatedQuestions = [...formik.values.questions];
-        const filter = new Filter();
-        updatedQuestions[index].question = filter.clean(value);
+        updatedQuestions[index].question = value;
         formik.setFieldValue("questions", updatedQuestions);
     };
 
     const handleAnswerChange = (event, questionIndex, answerIndex) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
-        const filter = new Filter();
-        questions[questionIndex].answers[answerIndex] = filter.clean(value);
+        questions[questionIndex].answers[answerIndex] = value;
         formik.setFieldValue("questions", questions);
     }
 
     const handleSolutionChange = (event, index) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
-        const filter = new Filter();
-        questions[index].solution = filter.clean(value);
+        questions[index].solution = parseInt(value);
         formik.setFieldValue("questions", questions);
     }
 
@@ -85,7 +81,7 @@ export const FormQuiz = () => {
         updatedQuestions.push({
             question: "",
             answers: ["", "", ""],
-            solution: ""
+            solution: 0,
         });
         formik.setFieldValue("questions", updatedQuestions);
     }
@@ -150,14 +146,18 @@ export const FormQuiz = () => {
                             <label>Answers:</label>
                             {question.answers.map((answer, answerIndex) => (
                                 <div key={answerIndex} className="answer-container">
-                                    <input
-                                        type="text"
-                                        name={`questions[${index}].answers[${answerIndex}]`}
-                                        value={answer}
-                                        onChange={(event) =>
-                                            handleAnswerChange(event, index, answerIndex)
-                                        }
-                                    />
+                                    <div>
+                                        <p>{answerIndex + 1} : <input
+                                            type="text"
+                                            name={`questions[${index}].answers[${answerIndex}]`}
+                                            value={answer}
+                                            onChange={(event) =>
+                                                handleAnswerChange(event, index, answerIndex)
+                                            }
+                                        />
+                                        </p>
+
+                                    </div>
                                     {formik.errors.questions &&
                                         formik.touched.questions &&
                                         formik.errors.questions[index] &&
@@ -176,13 +176,22 @@ export const FormQuiz = () => {
 
                         <div className="form-group">
                             <label htmlFor={`solution-${index}`}>Solution:</label>
-                            <input
-                                id={`solution-${index}`}
-                                type="text"
+                            <select
                                 name={`questions[${index}].solution`}
-                                value={question.solution}
+                                value=""
                                 onChange={(event) => handleSolutionChange(event, index)}
-                            />
+                                placeholder='Select a solution'
+                            >
+                                <option value="">
+                                    Select a solution
+                                </option>
+                                {new Array(3).fill(null).map((_, solution) => (
+                                    <option key={solution} value={solution}>
+                                        {solution + 1}
+                                    </option>
+                                ))}
+                            </select>
+
                             {formik.errors.questions &&
                                 formik.touched.questions &&
                                 formik.errors.questions[index] &&
@@ -194,7 +203,7 @@ export const FormQuiz = () => {
                         </div>
                     </div>
                 ))}
-                
+
                 <button type="button" onClick={addQuestion}>Add a question</button>
 
                 <ConfirmButton type="submit">Create</ConfirmButton>
