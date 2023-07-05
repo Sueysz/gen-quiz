@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Link } from "react-router-dom"
-import { FormPage } from "../components/FormPage"
+import { FormContent, FormPage } from "../components/FormPage"
 import { useState } from "react"
 import { useFormik } from "formik"
 import { StyledIcon } from "../components/Icons"
@@ -39,8 +39,13 @@ export const FormQuiz = () => {
         initialValues: quizData,
         validationSchema,
         onSubmit: async (values) => {
+            const updatedQuestions = values.questions.map(question => ({
+                ...question,
+                solution: question.solution - 1
+            }))
+
             console.log(values);
-            await createQuiz(values.title, values.color, values.questions);
+            await createQuiz(values.title, values.color, updatedQuestions);
             setQuizData({
                 title: "",
                 color: "#000000",
@@ -93,11 +98,10 @@ export const FormQuiz = () => {
             </Link>
             <h1>🫣Add your Quiz🫣</h1>
             <form onSubmit={formik.handleSubmit}>
-                <div className="form-group">
+                <FormContent>
                     <label htmlFor="title">Title:</label>
-                    <input
+                    <textarea
                         id="title"
-                        type="text"
                         name="title"
                         value={formik.values.title}
                         onChange={formik.handleChange}
@@ -105,9 +109,6 @@ export const FormQuiz = () => {
                     {formik.errors.title && formik.touched.title && (
                         <div className="error-message">{formik.errors.title}</div>
                     )}
-                </div>
-
-                <div className="form-group">
                     <label htmlFor="color">Color:</label>
                     <input
                         id="color"
@@ -119,15 +120,14 @@ export const FormQuiz = () => {
                     {formik.errors.color && formik.touched.color && (
                         <div className="error-message">{formik.errors.color}</div>
                     )}
-                </div>
+                </FormContent>
 
                 {formik.values.questions.map((question, index) => (
                     <div key={index} className="question-container">
-                        <div className="form-group">
+                        <FormContent>
                             <label htmlFor={`question-${index}`}>Question {index + 1}:</label>
                             <textarea
                                 id={`question-${index}`}
-                                type="text"
                                 name={`questions[${index}].question`}
                                 cols="30"
                                 rows="2"
@@ -140,14 +140,14 @@ export const FormQuiz = () => {
                                 formik.touched.questions[index] && (
                                     <div className="error-message">{formik.errors.questions[index].question}</div>
                                 )}
-                        </div>
+                        </FormContent>
 
-                        <div className="form-group">
+                        <FormContent>
                             <label>Answers:</label>
                             {question.answers.map((answer, answerIndex) => (
                                 <div key={answerIndex} className="answer-container">
                                     <div>
-                                        <p>{answerIndex + 1} : <input
+                                        <p>{answerIndex + 1} : <textarea
                                             type="text"
                                             name={`questions[${index}].answers[${answerIndex}]`}
                                             value={answer}
@@ -172,9 +172,9 @@ export const FormQuiz = () => {
                                         )}
                                 </div>
                             ))}
-                        </div>
+                        </FormContent>
 
-                        <div className="form-group">
+                        <FormContent>
                             <label htmlFor={`solution-${index}`}>Solution:</label>
                             <select
                                 name={`questions[${index}].solution`}
@@ -199,7 +199,7 @@ export const FormQuiz = () => {
                                 formik.touched.questions[index].solution && (
                                     <div className="error-message">{formik.errors.questions[index].solution}</div>
                                 )}
-                        </div>
+                        </FormContent>
                     </div>
                 ))}
 

@@ -12,5 +12,9 @@ export const FormPage = styled.div`
         align-items:center;
     }
 
-    
+`
+
+export const FormContent = styled.div`
+    display:flex;
+    align-items:center;
 `

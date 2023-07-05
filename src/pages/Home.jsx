@@ -41,7 +41,7 @@ export const Home = () => {
                         <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
                         {quizList.map(quiz => (
                             <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                                <div>{quiz.title}</div>
+                                <p>{quiz.title}</p>
                             </Card>
                         ))}
                     </>
