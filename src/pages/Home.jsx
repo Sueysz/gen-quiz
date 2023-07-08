@@ -37,21 +37,13 @@ export const Home = () => {
 
             <div className='grid'>
                 {isLoggedIn ? (
-                    <>
-                        <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
-                        {quizList.map(quiz => (
-                            <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                                <p>{quiz.title}</p>
-                            </Card>
-                        ))}
-                    </>
-                ) : (
-                    quizList.map(quiz => (
-                        <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                            <div>{quiz.title}</div>
-                        </Card>
-                    ))
-                )}
+                    <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
+                ) : null}
+                {quizList.map(quiz => (
+                    <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                        <p>{quiz.title}</p>
+                    </Card>
+                ))}
             </div>
         </HomePage>
     </>
