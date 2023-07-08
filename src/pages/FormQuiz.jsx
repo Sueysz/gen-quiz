@@ -100,7 +100,7 @@ export const FormQuiz = () => {
             <form onSubmit={formik.handleSubmit}>
                 <FormContent>
                     <label htmlFor="title">Title:</label>
-                    <textarea
+                    <input
                         id="title"
                         name="title"
                         value={formik.values.title}
