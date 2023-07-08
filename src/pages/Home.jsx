@@ -36,7 +36,9 @@ export const Home = () => {
             <h1>👇Choose Your Quiz👇</h1>
 
             <div className='grid'>
-                {isLoggedIn && <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>}
+                {isLoggedIn ? (
+                    <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
+                ) : null}
                 {quizList.map(quiz => (
                     <Card to={`quiz/${quiz.slug}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
                         <p>{quiz.title}</p>
