@@ -45,8 +45,6 @@ export const register = async (userName, email, password) => {
 
 };
 
-
-
 export const getAuth = async (email, password) => {
     const userData = {
         email: email,
@@ -91,17 +89,17 @@ export const logout = async () => {
     return { ok: response.ok, data };
 };
 
-export const createQuiz = async (title,color,questions) => {
-    const quizData ={
-        title:title,
-        color:color,
-        questions:questions,
+export const createQuiz = async (title, color, questions) => {
+    const quizData = {
+        title: title,
+        color: color,
+        questions: questions,
     };
 
-    const response = await fetch ("http://localhost:8800/createQuiz",{
+    const response = await fetch("http://localhost:8800/createQuiz", {
         method: "POST",
-        headers:{
-            'content-type' : 'application/json'
+        headers: {
+            'content-type': 'application/json'
         },
         body: JSON.stringify(quizData)
     });
@@ -111,3 +109,28 @@ export const createQuiz = async (title,color,questions) => {
     }
     return await response.json();;
 }
+
+export const FetchUserInfo = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8800/user', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            
+        });
+        console.log(response)
+        if (!response.ok) {
+            throw new Error('Failed to fetch user details');
+        }
+
+        const userData = await response.json();
+        console.log(userData)
+        return userData;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
