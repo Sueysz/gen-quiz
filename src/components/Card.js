@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import { Link } from 'react-router-dom';
 
+export const CardContainer = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`
+
 export const Card = styled(Link)`
     display: flex;
     width: 200px;
