@@ -41,7 +41,7 @@ export const FormQuiz = () => {
         onSubmit: async (values) => {
             const updatedQuestions = values.questions.map(question => ({
                 ...question,
-                solution: question.solution - 1
+                solution: question.solution
             }))
 
             console.log(values);
