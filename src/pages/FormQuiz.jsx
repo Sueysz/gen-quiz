@@ -6,8 +6,10 @@ import { useFormik } from "formik"
 import { StyledIcon } from "../components/Icons"
 import { createQuiz } from "../api"
 import { ConfirmButton } from "../components/Buttons"
+import { useNavigate } from 'react-router-dom';
 
 export const FormQuiz = () => {
+    const navigate = useNavigate();
     const [quizData, setQuizData] = useState({
         title: "",
         color: "#000000",
@@ -57,6 +59,8 @@ export const FormQuiz = () => {
                     }
                 ]
             })
+
+            navigate("/")
         }
     })
 
