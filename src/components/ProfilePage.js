@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
 export const ProfilePage = styled.div`
-    display:flex;
-    justify-content:center;
+    h1{
+        text-align:center;
+    }
+    p{
+        text-align:center;
+    }
 `
