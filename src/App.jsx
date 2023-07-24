@@ -17,7 +17,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path='quiz/:slug' element={<Quiz />} />
+        <Route path='quiz/:id' element={<Quiz />} />
         <Route path="*" element={<NotFound />} />
         <Route path='test' element={<Test />} />
         <Route path='FormQuiz' element={<FormQuiz />} />

@@ -18,7 +18,7 @@ const TitleContainer = styled.div`
 `
 
 export const Quiz = () => {
-    const { slug } = useParams();
+    const { id } = useParams();
     const [quiz, setQuiz] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [questionsIndex, setQuestionsIndex] = useState(0);
@@ -26,9 +26,9 @@ export const Quiz = () => {
     const [incorrectAnswers, setIncorectAnswers] = useState(0);
 
     useEffect(() => {
-        getQuiz(slug)
+        getQuiz(id)
             .then(setQuiz)
-    }, [slug]);
+    }, [id]);
 
     const question = useMemo(() => {
         if (quiz === null) {

@@ -73,9 +73,9 @@ export const listQuiz = async () => {
         return res.json()
     })
 };
-export const getQuiz = async (slug) => {
+export const getQuiz = async (id) => {
     // return data.find(quiz =>quiz.slug === slug )
-    return await fetch(`http://localhost:8800/quiz/${slug}`).then((res) => {
+    return await fetch(`http://localhost:8800/quiz/${id}`).then((res) => {
         return res.json()
     })
 };
@@ -146,5 +146,5 @@ export const FetchCategories = async () =>{
     if (!response.ok) {
         throw new Error('fetch categories request failed');
     }
-    return await response.json()
+    return response.json()
 }
