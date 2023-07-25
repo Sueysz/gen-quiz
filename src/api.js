@@ -110,7 +110,7 @@ export const createQuiz = async (title, color, questions) => {
     return await response.json();;
 }
 
-export const FetchUserInfo = async () => {
+export const fetchUserinfo = async () => {
     try {
         const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8800/user', {
@@ -135,9 +135,23 @@ export const FetchUserInfo = async () => {
     }
 };
 
-export const FetchCategories = async () =>{
+export const fetchCategories = async () =>{
     const response = await fetch("http://localhost:8800/categories", {
         method: 'GET',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('fetch categories request failed');
+    }
+    return response.json()
+}
+
+export const getQuizCategories = async ()=>{
+    const response = await fetch("http://localhost:8800/quiz_categories",{
+        method:'GET',
         headers:{
             'Content-Type': 'application/json',
         },
