@@ -2,7 +2,7 @@
 import { Logout } from '../components/Logout';
 import { useAuth } from '../utils/AuthProvider';
 import { HomePage } from '../components/HomePage';
-import { FetchCategories, listQuiz } from '../api';
+import { fetchCategories, listQuiz } from '../api';
 import { LinkButton } from '../components/Buttons';
 import { StyledIcon } from '../components/Icons';
 import { Card, CardAdd } from '../components/Card';
@@ -10,14 +10,14 @@ import { useEffect, useState } from 'react';
 
 export const Home = () => {
     const [quizList, setQuizList] = useState([]);
-    const [categoriesList,setCategoriesList] = useState([]);
+    const [categoriesList, setCategoriesList] = useState([]);
     const { isLoggedIn } = useAuth();
     useEffect(() => {
         listQuiz().then(setQuizList)
     }, [])
-    useEffect(()=>{
-        FetchCategories().then(setCategoriesList)
-    },[])
+    useEffect(() => {
+        fetchCategories().then(setCategoriesList)
+    }, [])
 
     return <>
         <HomePage>
@@ -38,7 +38,7 @@ export const Home = () => {
                 </div>
             </div>
             <h1>👇Choose Your Quiz👇</h1>
-            {categoriesList.map(categorie =>(
+            {categoriesList.map(categorie => (
                 <p key={categorie.id}>{categorie.name}</p>
             ))}
 
@@ -46,11 +46,11 @@ export const Home = () => {
                 {isLoggedIn ? (
                     <CardAdd style={{ backgroundColor: 'black' }} to="/FormQuiz"> </CardAdd>
                 ) : null}
-                    {quizList.map(quiz => (
-                        <Card to={`quiz/${quiz.id}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                            <p>{quiz.title}</p>
-                        </Card>
-                    ))}
+                {quizList.map(quiz => (
+                    <Card to={`quiz/${quiz.id}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
+                        <p>{quiz.title}</p>
+                    </Card>
+                ))}
             </div>
         </HomePage>
     </>

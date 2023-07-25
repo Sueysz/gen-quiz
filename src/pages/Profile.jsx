@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utils/AuthProvider';
-import { FetchUserInfo } from '../api';
+import { fetchUserinfo } from '../api';
 import { ProfilePage } from '../components/ProfilePage';
 import { Link } from 'react-router-dom';
 import { StyledIcon } from '../components/Icons';
@@ -12,7 +12,7 @@ export const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const userData = await FetchUserInfo();
+                const userData = await fetchUserinfo();
                 setUser(userData)
             } catch (error) {
                 console.log('Error fetching user information:', error);
