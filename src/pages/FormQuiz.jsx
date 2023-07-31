@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { Link } from "react-router-dom"
-import { FormContent, FormPage } from "../components/FormPage"
+import { FormContent, FormContentContainer, FormPage } from "../components/FormPage"
 import { useState } from "react"
 import { useFormik } from "formik"
 import { StyledIcon } from "../components/Icons"
 import { createQuiz } from "../api"
-import { ConfirmButton } from "../components/Buttons"
+import { Btn, BtnCreate } from "../components/Buttons"
 import { useNavigate } from 'react-router-dom';
 
 export const FormQuiz = () => {
@@ -95,46 +95,56 @@ export const FormQuiz = () => {
         formik.setFieldValue("questions", updatedQuestions);
     }
 
+    const placeholders = ["One", "Two", "Three"];
+
     return (
         <FormPage>
-            <Link to="/">
-                <StyledIcon src="/icons/logo.png" alt="logo" />
-            </Link>
-            <h1>🫣Add your Quiz🫣</h1>
+            <header>
+                <Link to="/">
+                    <StyledIcon src="/icons/logo.png" alt="logo" />
+                </Link>
+                <BtnCreate type="submit">Create</BtnCreate>
+            </header>
+            <h1>🎨Add your Quiz🎨</h1>
             <form onSubmit={formik.handleSubmit}>
-                <FormContent>
-                    <label htmlFor="title">Title:</label>
-                    <input
-                        id="title"
-                        name="title"
-                        value={formik.values.title}
-                        onChange={formik.handleChange}
-                    />
-                    {formik.errors.title && formik.touched.title && (
-                        <div className="error-message">{formik.errors.title}</div>
-                    )}
-                    <label htmlFor="color">Color:</label>
-                    <input
-                        id="color"
-                        type="color"
-                        name="color"
-                        value={formik.values.color}
-                        onChange={formik.handleChange}
-                    />
-                    {formik.errors.color && formik.touched.color && (
-                        <div className="error-message">{formik.errors.color}</div>
-                    )}
-                </FormContent>
+                <FormContentContainer>
+                    <FormContent>
+                        <h3 htmlFor="title">Title</h3>
+                        <input
+                            id="title"
+                            name="title"
+                            value={formik.values.title}
+                            placeholder='My quiz'
+                            onChange={formik.handleChange}
+                        />
+                        {formik.errors.title && formik.touched.title && (
+                            <div className="error-message">{formik.errors.title}</div>
+                        )}
+                    </FormContent>
+                    <FormContent>
+                        <h3 htmlFor="color">Color</h3>
+                        <input
+                            id="color"
+                            type="color"
+                            name="color"
+                            style={{width:'2.5rem'}}
+                            value={formik.values.color}
+                            onChange={formik.handleChange}
+                        />
+                        {formik.errors.color && formik.touched.color && (
+                            <div className="error-message">{formik.errors.color}</div>
+                        )}
+                    </FormContent>
+                </FormContentContainer>
 
                 {formik.values.questions.map((question, index) => (
                     <div key={index} className="question-container">
                         <FormContent>
-                            <label htmlFor={`question-${index}`}>Question {index + 1}:</label>
-                            <textarea
+                            <h3 htmlFor={`question-${index}`}>Question {index + 1}</h3>
+                            <input
                                 id={`question-${index}`}
                                 name={`questions[${index}].question`}
-                                cols="30"
-                                rows="2"
+                                placeholder='My question'
                                 value={question.question}
                                 onChange={(event) => handleQuestionChange(event, index)}
                             />
@@ -147,14 +157,15 @@ export const FormQuiz = () => {
                         </FormContent>
 
                         <FormContent>
-                            <label>Answers:</label>
+                            <h3>Answers</h3>
                             {question.answers.map((answer, answerIndex) => (
                                 <div key={answerIndex} className="answer-container">
                                     <div>
-                                        <p>{answerIndex + 1} : <textarea
+                                        <p>{answerIndex + 1} <input
                                             type="text"
                                             name={`questions[${index}].answers[${answerIndex}]`}
                                             value={answer}
+                                            placeholder={placeholders[answerIndex]}
                                             onChange={(event) =>
                                                 handleAnswerChange(event, index, answerIndex)
                                             }
@@ -179,7 +190,7 @@ export const FormQuiz = () => {
                         </FormContent>
 
                         <FormContent>
-                            <label htmlFor={`solution-${index}`}>Solution:</label>
+                            <h3 htmlFor={`solution-${index}`}>Solution</h3>
                             <select
                                 name={`questions[${index}].solution`}
                                 value={formik.values.questions[index].solution}
@@ -207,9 +218,9 @@ export const FormQuiz = () => {
                     </div>
                 ))}
 
-                <button type="button" onClick={addQuestion}>Add a question</button>
+                <Btn type="button" onClick={addQuestion}>Add a question</Btn>
 
-                <ConfirmButton type="submit">Create</ConfirmButton>
+
             </form>
         </FormPage>
     );

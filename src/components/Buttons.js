@@ -45,3 +45,14 @@ export const ValidationButton = styled.button`
         background-color:rgba(1,1,1,0.4);
     }
 `
+export const Btn = styled.button`
+    background-color:transparent;
+    border-radius:5px;
+    width:16rem;
+    padding:10px;
+    margin:10px;
+`
+export const BtnCreate = styled(Btn)`
+width:8rem;
+height:3rem;
+`
