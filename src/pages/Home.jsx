@@ -2,7 +2,7 @@ import { Logout } from '../components/Logout';
 import { useAuth } from '../utils/AuthProvider';
 import { HomePage } from '../components/HomePage';
 import { fetchCategories, getQuizCategories, listQuiz } from '../api';
-import { LinkButton } from '../components/Buttons';
+import { Btn, LinkButton } from '../components/Buttons';
 import { StyledIcon } from '../components/Icons';
 import { Card, CardAdd } from '../components/Card';
 import { useEffect, useState } from 'react';
@@ -64,9 +64,9 @@ export const Home = () => {
             <h1>👇Choose Your Quiz👇</h1>
             <div className='grid'>
                 {categoriesList.map((categorie) => (
-                    <button onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
+                    <Btn style={{width:'4rem'}} onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
                         {categorie.name}
-                    </button>
+                    </Btn>
                 ))}
             </div>
 

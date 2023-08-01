@@ -51,6 +51,10 @@ export const Btn = styled.button`
     width:16rem;
     padding:10px;
     margin:10px;
+    :hover{
+        background-color: black;
+        color:#EEEEEE;
+    }
 `
 export const BtnCreate = styled(Btn)`
 width:8rem;
