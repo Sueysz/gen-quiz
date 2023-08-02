@@ -44,6 +44,10 @@ export const Home = () => {
         setSelectedCategory(categoryId);
     };
 
+    const handleResetCategorySelection = () => {
+        setSelectedCategory('');
+    };
+
     return (
         <HomePage>
             <div className='wrapper'>
@@ -57,12 +61,15 @@ export const Home = () => {
                             <LinkButton to='/profile'>Profile</LinkButton>
                         </>
                     ) : (
-                        <LinkButton to='/login'>LogIn</LinkButton>
+                        <LinkButton to='/login'>Log-In</LinkButton>
                     )}
                 </div>
             </div>
             <h1>👇Choose Your Quiz👇</h1>
             <div className='grid'>
+                <Btn style={{width:'4rem'}} onClick={()=> handleResetCategorySelection()}>
+                        all
+                </Btn>
                 {categoriesList.map((categorie) => (
                     <Btn style={{width:'4rem'}} onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
                         {categorie.name}
