@@ -3,21 +3,23 @@ import { Link } from "react-router-dom";
 
 export const LinkButton = styled(Link)`
     display: flex;
-    padding: 20px;
     cursor: pointer;
+    padding-bottom:5px;
     font-size:1.5rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    border-radius:15px;
-    width:65px;
-    transition: 100ms;
+    border-radius:5px;
+    border:1px solid;
+    width:6rem;
+    height:4rem;
+    transition: 250ms;
     transform:scale(0.95);
     text-decoration:none;
     justify-content:center;
-    margin-bottom: 10px;
+    align-items:center;
     color: black;
     &:hover{
+        background-color: black;
+        color:#EEEEEE;
         transform: scale(0.90);
-        box-shadow: 1px 10px 5px rgba(0, 0, 0, 0.2);
     }
 `;
 
@@ -51,9 +53,12 @@ export const Btn = styled.button`
     width:16rem;
     padding:10px;
     margin:10px;
+    transition: 250ms;
+    transform:scale(0.95);
     :hover{
         background-color: black;
         color:#EEEEEE;
+        transform: scale(0.90);
     }
 `
 export const BtnCreate = styled(Btn)`
