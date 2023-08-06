@@ -26,3 +26,7 @@ export const Answer = styled.button`
     background-color: ${props => props.selected ? 'rgb(0,0,0)' : 'rgba(1,1,1,0.4)'};
 }
 `;
+
+export const QuestionsIndex= styled.p`
+    font-size:2rem
+`
