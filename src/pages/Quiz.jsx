@@ -9,7 +9,12 @@ import { LinkButton, ValidationButton } from '../components/Buttons'
 import { useState, useEffect, useMemo, useCallback } from "react"
 
 const Container = styled.div`
-    height:100vh;
+    height: 100vh;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    overflow:auto
 `
 const TitleContainer = styled.div`
     display: flex;
