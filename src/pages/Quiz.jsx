@@ -1,8 +1,8 @@
 
-import  styled  from '@emotion/styled'
+import styled from '@emotion/styled'
 import { getQuiz } from '../api'
 import { fireConfetti } from "../utils/fireConffeti"
-import { Answer, Answers } from '../components/Answers'
+import { Answer, Answers, QuestionsIndex } from '../components/Quiz'
 import { Link, useParams, } from 'react-router-dom'
 import { QuestionContainer } from '../components/QuestionContainer'
 import { LinkButton, ValidationButton } from '../components/Buttons'
@@ -24,6 +24,8 @@ export const Quiz = () => {
     const [questionsIndex, setQuestionsIndex] = useState(0);
     const [score, setscore] = useState(0);
     const [incorrectAnswers, setIncorectAnswers] = useState(0);
+    const currentQuestionNumber = questionsIndex + 1;
+    const totalQuestions = quiz?.questions?.length || 0;
 
     useEffect(() => {
         getQuiz(id)
@@ -40,10 +42,29 @@ export const Quiz = () => {
 
     const checkAnswer = useCallback(() => {
         if (question.solution === selectedAnswer) {
-            fireConfetti();
+            fireConfetti([
+                '#FFFFFF',
+                '#14BB69',
+                '#14BB69',
+                '#14BB69',
+                '#50e283',
+                '#569d71',
+                '#196d42',
+                '#02660c',
+            ]);
             setscore((prevScore) => prevScore + 1);
 
         } else {
+            fireConfetti([
+                '#ff9393',
+                '#FF7F21',
+                '#E8571E',
+                '#EB6965',
+                '#FF4A2F',
+                '#FF5447',
+                '#E81E27',
+                '#EB0602'
+            ])
             setIncorectAnswers((prevIncorrectAnswsers) => prevIncorrectAnswsers + 1);
         }
         setQuestionsIndex((i) => i + 1);
@@ -89,6 +110,7 @@ export const Quiz = () => {
                         <ValidationButton disabled={selectedAnswer === undefined} onClick={checkAnswer}>
                             Confirm
                         </ValidationButton>
+                        <QuestionsIndex>Question {currentQuestionNumber} / {totalQuestions}</QuestionsIndex>
                     </Answers>
                 </QuestionContainer>
             </Container>
