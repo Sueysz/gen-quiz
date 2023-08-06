@@ -1,6 +1,6 @@
 import confetti from 'canvas-confetti';
 
-export const fireConfetti = () => {
+export const fireConfetti = (colors) => {
     const count = 200;
     const defaults = {
         origin: {y: 0.45},
@@ -14,16 +14,7 @@ export const fireConfetti = () => {
             ...opts,
             particleCount: Math.floor(count * particleRatio),
             // all from greeninvoice's pie chart colors
-            colors: [
-                '#FFFFFF', // white
-                '#14BB69',
-                '#14BB69',
-                '#14BB69', // brand green, repeated to increase rate
-                '#50BAE2',
-                '#A4FFF5',
-                '#FFBF28',
-                '#FF5447',
-            ],
+            colors: colors,
         });
     };
 
