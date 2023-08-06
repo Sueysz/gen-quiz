@@ -50,7 +50,7 @@ export const ValidationButton = styled.button`
 export const Btn = styled.button`
     background-color:transparent;
     border-radius:5px;
-    width:16rem;
+    font-size:1rem;
     padding:10px;
     margin:10px;
     transition: 250ms;

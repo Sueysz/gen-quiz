@@ -67,11 +67,11 @@ export const Home = () => {
             </div>
             <h1>👇Choose Your Quiz👇</h1>
             <div className='grid'>
-                <Btn style={{width:'4rem'}} onClick={()=> handleResetCategorySelection()}>
+                <Btn style={{width:'5rem'}} onClick={()=> handleResetCategorySelection()}>
                         all
                 </Btn>
                 {categoriesList.map((categorie) => (
-                    <Btn style={{width:'4rem'}} onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
+                    <Btn style={{width:'5rem'}} onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
                         {categorie.name}
                     </Btn>
                 ))}
