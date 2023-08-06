@@ -8,7 +8,7 @@ import { createQuiz } from "../api"
 import { Btn, BtnCreate } from "../components/Buttons"
 import { useNavigate } from 'react-router-dom';
 
-export const FormQuiz = () => {
+export const FormQuiz = ({ categoriesList }) => {
     const navigate = useNavigate();
     const [quizData, setQuizData] = useState({
         title: "",
@@ -19,7 +19,8 @@ export const FormQuiz = () => {
                 answers: ["", "", ""],
                 solution: 0,
             }
-        ]
+        ],
+        category: ""
     });
 
     const validationSchema = Yup.object().shape({
@@ -47,20 +48,25 @@ export const FormQuiz = () => {
             }))
 
             console.log(values);
-            await createQuiz(values.title, values.color, updatedQuestions);
-            setQuizData({
-                title: "",
-                color: "#000000",
-                questions: [
-                    {
-                        question: "",
-                        answers: ["", "", ""],
-                        solution: 0,
-                    }
-                ]
-            })
-
-            navigate("/")
+            try {
+                const { quiz } = await createQuiz(values.title, values.color, updatedQuestions, values.category);
+                console.log(quiz);
+                setQuizData({
+                    title: "",
+                    color: "#000000",
+                    questions: [
+                        {
+                            question: "",
+                            answers: ["", "", ""],
+                            solution: 0,
+                        }
+                    ],
+                    category:"",
+                });
+                navigate("/");
+            } catch (error) {
+                console.error("Error while creating quiz:", error);
+            }
         }
     })
 
@@ -103,7 +109,6 @@ export const FormQuiz = () => {
                 <Link to="/">
                     <StyledIcon src="/icons/logo.png" alt="logo" />
                 </Link>
-                <BtnCreate type="submit">Create</BtnCreate>
             </header>
             <h1>🎨Add your Quiz🎨</h1>
             <form onSubmit={formik.handleSubmit}>
@@ -127,12 +132,35 @@ export const FormQuiz = () => {
                             id="color"
                             type="color"
                             name="color"
-                            style={{width:'2.5rem'}}
+                            style={{ width: '2.5rem' }}
                             value={formik.values.color}
                             onChange={formik.handleChange}
                         />
                         {formik.errors.color && formik.touched.color && (
                             <div className="error-message">{formik.errors.color}</div>
+                        )}
+                    </FormContent>
+                </FormContentContainer>
+                <FormContentContainer>
+                    <FormContent>
+                        <h3 htmlFor="category">Category</h3>
+                        <select
+                            id="category"
+                            name="category"
+                            value={formik.values.category}
+                            onChange={formik.handleChange}
+                        >
+                            <option value="" disabled>
+                                Select a category
+                            </option>
+                            {categoriesList.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                        {formik.errors.category && formik.touched.category && (
+                            <div className="error-message">{formik.errors.category}</div>
                         )}
                     </FormContent>
                 </FormContentContainer>
@@ -219,7 +247,7 @@ export const FormQuiz = () => {
                 ))}
 
                 <Btn type="button" onClick={addQuestion}>Add a question</Btn>
-
+                <BtnCreate type="submit">Create</BtnCreate>
 
             </form>
         </FormPage>

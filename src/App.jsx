@@ -8,8 +8,24 @@ import { NotFound } from './pages/NotFound';
 import { Routes, Route } from "react-router-dom";
 
 import { FormQuiz } from './pages/FormQuiz';
+import { useEffect, useState } from 'react';
+import { fetchCategories } from './api';
 
 const App = () => {
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  useEffect(() => {
+    const fetchCategoriesData = async () => {
+      try {
+        const categoriesData = await fetchCategories();
+        setCategoriesList(categoriesData);
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+
+    fetchCategoriesData();
+  }, []);
 
   return (
     <>
@@ -20,7 +36,7 @@ const App = () => {
         <Route path='quiz/:id' element={<Quiz />} />
         <Route path="*" element={<NotFound />} />
         <Route path='test' element={<Test />} />
-        <Route path='FormQuiz' element={<FormQuiz />} />
+        <Route path='FormQuiz' element={<FormQuiz categoriesList={categoriesList} />} />
         <Route path='Profile' element={<Profile />} />
       </Routes>
     </>
