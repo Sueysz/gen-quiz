@@ -17,7 +17,7 @@ export const Card = styled(Link)`
     border: 1px solid white;
     font-size: 1.2rem;
     text-decoration: none;
-    color: white;
+    color: #e7e6f6e1;
     transition: 100ms;
     background-color: #fafafa;
         p{
