@@ -1,3 +1,4 @@
+import { CGU } from './pages/CGU';
 import { Test } from './pages/test';
 import { Quiz } from './pages/Quiz';
 import { Home } from './pages/Home';
@@ -10,6 +11,7 @@ import { Routes, Route } from "react-router-dom";
 import { FormQuiz } from './pages/FormQuiz';
 import { useEffect, useState } from 'react';
 import { fetchCategories } from './api';
+
 
 const App = () => {
   const [categoriesList, setCategoriesList] = useState([]);
@@ -38,6 +40,7 @@ const App = () => {
         <Route path='test' element={<Test />} />
         <Route path='FormQuiz' element={<FormQuiz categoriesList={categoriesList} />} />
         <Route path='Profile' element={<Profile />} />
+        <Route path="CGU" element={<CGU />} />
       </Routes>
     </>
   )
