@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api";
-import { LinkButton } from "./Buttons";
+import { LinkButton } from "../components/Buttons";
 import { useAuth } from "../utils/AuthProvider";
 
 export const Logout = () => {
