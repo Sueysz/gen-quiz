@@ -49,20 +49,21 @@ export const FormQuiz = ({ categoriesList }) => {
 
             console.log(values);
             try {
+                // requete post 
                 const { quiz } = await createQuiz(values.title, values.color, updatedQuestions, values.category);
                 console.log(quiz);
-                setQuizData({
-                    title: "",
-                    color: "#000000",
-                    questions: [
-                        {
-                            question: "",
-                            answers: ["", "", ""],
-                            solution: 0,
-                        }
-                    ],
-                    category:"",
-                });
+                // setQuizData({
+                //     title: "",
+                //     color: "#000000",
+                //     questions: [
+                //         {
+                //             question: "",
+                //             answers: ["", "", ""],
+                //             solution: 0,
+                //         }
+                //     ],
+                //     category:"",
+                // });
                 navigate("/");
             } catch (error) {
                 console.error("Error while creating quiz:", error);
@@ -145,6 +146,7 @@ export const FormQuiz = ({ categoriesList }) => {
                     <FormContent>
                         <h3 htmlFor="category">Category</h3>
                         <select
+                            style={{width:"20rem", height:"1.8rem"}}
                             id="category"
                             name="category"
                             value={formik.values.category}
