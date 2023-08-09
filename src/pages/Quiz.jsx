@@ -3,10 +3,11 @@ import styled from '@emotion/styled'
 import { getQuiz } from '../api'
 import { fireConfetti } from "../utils/fireConffeti"
 import { Answer, Answers, QuestionsIndex } from '../components/Quiz'
-import { Link, useParams, } from 'react-router-dom'
+import { useParams, } from 'react-router-dom'
 import { QuestionContainer } from '../components/QuestionContainer'
 import { LinkButton, ValidationButton } from '../components/Buttons'
 import { useState, useEffect, useMemo, useCallback } from "react"
+import { Result } from './Result'
 
 const Container = styled.div`
     height: 100vh;
@@ -15,6 +16,7 @@ const Container = styled.div`
     left:0;
     width:100%;
     overflow:auto
+    
 `
 const TitleContainer = styled.div`
     display: flex;
@@ -23,6 +25,8 @@ const TitleContainer = styled.div`
 `
 
 export const Quiz = () => {
+
+    // Utilisation de useParams pour obtenir l'ID du quiz depuis l'URL
     const { id } = useParams();
     const [quiz, setQuiz] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -32,11 +36,13 @@ export const Quiz = () => {
     const currentQuestionNumber = questionsIndex + 1;
     const totalQuestions = quiz?.questions?.length || 0;
 
+    // Effet pour charger les données du quiz en fonction de l'ID
     useEffect(() => {
         getQuiz(id)
             .then(setQuiz)
     }, [id]);
 
+    // Utilisation de useMemo pour obtenir la question actuelle (j'ai fait ce système comme je ne savais pas combien de quiz un user aller crée)
     const question = useMemo(() => {
         if (quiz === null) {
             return undefined;
@@ -45,8 +51,10 @@ export const Quiz = () => {
         }
     }, [quiz, questionsIndex]);
 
+    // Gestionnaire pour vérifier la réponse et mettre à jour le score
     const checkAnswer = useCallback(() => {
         if (question.solution === selectedAnswer) {
+            // Si la réponse est correcte, jouer des confettis et incrémenter le score
             fireConfetti([
                 '#FFFFFF',
                 '#14BB69',
@@ -60,6 +68,7 @@ export const Quiz = () => {
             setscore((prevScore) => prevScore + 1);
 
         } else {
+            // Si la réponse est incorrecte, jouer des confettis et incrémenter le nombre de réponses incorrectes
             fireConfetti([
                 '#ff9393',
                 '#FF7F21',
@@ -72,18 +81,14 @@ export const Quiz = () => {
             ])
             setIncorectAnswers((prevIncorrectAnswsers) => prevIncorrectAnswsers + 1);
         }
+        // Passer à la question suivante
         setQuestionsIndex((i) => i + 1);
     }, [question, selectedAnswer]);
 
+    // Si aucune question n'est disponible, afficher les résultats du quiz
     if (question === undefined) {
         return (
-            <>
-                <div>
-                    Bravo! <button><Link to="/">back to Quiz</Link></button>
-                    <p>Score: {score}</p>
-                    <p>Incorrect Answers: {incorrectAnswers}</p>
-                </div>
-            </>
+                <Result score={score} incorrectAnswers={incorrectAnswers}/>
         )
     }
 

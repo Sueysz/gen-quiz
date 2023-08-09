@@ -7,10 +7,13 @@ export const Logout = () => {
     const { handleRefreshPage } = useAuth();
     const navigate = useNavigate();
 
+    // Gestionnaire de déconnexion
     const handleLogout = async () => {
         try {
+            // Appel à la fonction de déconnexion depuis l'API
             const { ok } = await logout();
 
+            // Suppression du token du stockage local
             localStorage.removeItem("token");
 
             if (ok) {

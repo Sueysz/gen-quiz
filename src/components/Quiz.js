@@ -30,3 +30,4 @@ export const Answer = styled.button`
 export const QuestionsIndex= styled.p`
     font-size:2rem
 `
+

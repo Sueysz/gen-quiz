@@ -1,5 +1,5 @@
 import { CGU } from './pages/CGU';
-import { Test } from './pages/test';
+import { Test } from './pages/Test';
 import { Quiz } from './pages/Quiz';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -17,6 +17,7 @@ const App = () => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
+    // Utilisation de useEffect pour récupérer les catégories lors du chargement de l'application (j'ai commencer à coder différement pendant mon stage du coup maintenant j'utilise les parents)
     const fetchCategoriesData = async () => {
       try {
         const categoriesData = await fetchCategories();
@@ -31,7 +32,11 @@ const App = () => {
 
   return (
     <>
+      
+      {/* Utilisation de la composante Routes pour gérer les routes de l'application */}  
       <Routes>
+
+        {/* Définition des routes avec le chemin (path) et le composant à afficher (element) */}
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

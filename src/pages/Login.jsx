@@ -8,8 +8,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCallback, useState } from 'react'
 
 export const Login = () => {
+
+    // Utilisation du hook useAuth pour gérer l'état de connexion de l'utilisateur
     const { handleRefreshPage} = useAuth();
     const [validationErrors, setValidationErrors]= useState({});
+
+    // State pour stocker les données du formulaire (email et mot de passe)
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -17,6 +21,7 @@ export const Login = () => {
 
     const navigate = useNavigate();
 
+    // Gestionnaire de changement de saisie dans le formulaire
     const handleInputChange = useCallback((event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({
@@ -25,22 +30,28 @@ export const Login = () => {
         }));
     }, []);
 
+    // Gestionnaire de connexion
     const handleLogin = useCallback(async (event) => {
         event.preventDefault();
 
         try {
+            // Validation des données du formulaire avec le schéma Yup (utilisation de abortEarly pour que yup valide tous les champs pour capturer toute les erreurs)
             await loginSchema.validate(formData, {abortEarly: false});
 
+            // Appel à la fonction de connexion depuis l'API
             const token =await login(formData.email, formData.password);
             setFormData({
                 email: '',
                 password: ''
             });
 
+            // Stockage du token dans le stockage local
             localStorage.setItem('token',token);
 
             navigate('/');
             handleRefreshPage();
+            
+            //gestion des erreurs
         } catch (error) {
             if (error instanceof Yup.ValidationError){
                 const errors = {};
@@ -55,6 +66,7 @@ export const Login = () => {
         }
     }, [formData, navigate]);
 
+    // Schéma de validation Yup pour le formulaire de connexion
     const loginSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email').required('Email is required'),
         password: Yup.string().required('Password is required'),

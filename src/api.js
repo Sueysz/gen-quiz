@@ -1,3 +1,5 @@
+
+// Fonction pour gérer la connexion de l'utilisateur
 export const login = async (email, password) => {
     const userData = {
         email: email,
@@ -27,6 +29,7 @@ export const login = async (email, password) => {
     }
 };
 
+// Fonction pour enregistrer un nouvel utilisateur
 export const register = async (userName, email, password) => {
     const userData = {
         username: userName,
@@ -56,6 +59,7 @@ export const register = async (userName, email, password) => {
     }
 };
 
+// Fonction pour obtenir les informations d'authentification d'un utilisateur
 export const getAuth = async (email, password) => {
     const userData = {
         email: email,
@@ -84,6 +88,7 @@ export const getAuth = async (email, password) => {
     }
 };
 
+// Fonction pour obtenir la liste des quiz
 export const listQuiz = async () => {
     try {
         const response = await fetch("http://localhost:8800/quiz");
@@ -99,6 +104,7 @@ export const listQuiz = async () => {
     }
 };
 
+//fonction pour obtenir l'id du quiz avec le hook useparams
 export const getQuiz = async (id) => {
     try {
         const response = await fetch(`http://localhost:8800/quiz/${id}`);
@@ -114,6 +120,7 @@ export const getQuiz = async (id) => {
     }
 };
 
+//fonction pour la déconnection
 export const logout = async () => {
     try {
         const response = await fetch("http://localhost:8800/logout", {
@@ -128,6 +135,7 @@ export const logout = async () => {
     }
 };
 
+//fonction pour crée un quiz
 export const createQuiz = async (title, color, questions, category) => {
     const quizData = {
         title: title,
@@ -158,6 +166,7 @@ export const createQuiz = async (title, color, questions, category) => {
     }
 };
 
+//fonction pour récuperer les information d'users
 export const fetchUserinfo = async () => {
     try {
         const token = localStorage.getItem('token');
@@ -182,6 +191,7 @@ export const fetchUserinfo = async () => {
     }
 };
 
+//fonction pour récuperer la liste des catégories
 export const fetchCategories = async () => {
     try {
         const response = await fetch("http://localhost:8800/categories", {
@@ -204,6 +214,7 @@ export const fetchCategories = async () => {
     }
 };
 
+//fonction qui récupère les quiz affilier à une categorie 
 export const getQuizCategories = async () => {
     try {
         const response = await fetch("http://localhost:8800/quiz_categories", {

@@ -8,6 +8,8 @@ import { Card, CardAdd } from '../components/Card';
 import { useEffect, useState } from 'react';
 
 export const Home = () => {
+
+    //mes states qui stock de la données
     const [quizList, setQuizList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
     const [categoriesQuiz, setCategoriesQuiz] = useState([]);
@@ -15,6 +17,7 @@ export const Home = () => {
     const [filteredQuizList, setFilteredQuizList] = useState([]);
     const { isLoggedIn } = useAuth();
 
+    // Effect pour charger les données initiales (quiz, catégories et relation)
     useEffect(() => {
         Promise.all([listQuiz(), fetchCategories(), getQuizCategories()])
             .then(([quizData, categoriesData, categoriesQuizData]) => {
@@ -27,6 +30,7 @@ export const Home = () => {
             });
     }, []);
 
+    // Effect pour filtrer la liste des quiz en fonction de la catégorie sélectionnée
     useEffect(() => {
         if (selectedCategory === '') {
             setFilteredQuizList(quizList);
@@ -40,10 +44,12 @@ export const Home = () => {
         }
     }, [selectedCategory, categoriesQuiz, quizList]);
 
+    // Gestionnaire de sélection de catégorie
     const handleCategorySelection = (categoryId) => {
         setSelectedCategory(categoryId);
     };
-
+    
+    //Gestionnaire de réinitialisation de la sélection de catégorie
     const handleResetCategorySelection = () => {
         setSelectedCategory('');
     };
@@ -67,6 +73,7 @@ export const Home = () => {
             </div>
             <h1>👇Choose Your Quiz👇</h1>
             <div className='grid'>
+                {/* Sélecteur de categories*/}
                 <Btn style={{width:'5rem', cursor:'pointer'}} onClick={()=> handleResetCategorySelection()}>
                         all
                 </Btn>
@@ -76,8 +83,10 @@ export const Home = () => {
                     </Btn>
                 ))}
             </div>
-
+            
+            {/* Affichage des cartes de quiz */}
             <div className='grid'>
+                {/* Bouton pour ajouter un nouveau quiz, affiché si l'utilisateur est connecté */}
                 {isLoggedIn ? <CardAdd style={{ backgroundColor: 'black' }} to='/FormQuiz' /> : null}
                 {filteredQuizList.map((quiz) => (
                     <Card to={`quiz/${quiz.id}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>

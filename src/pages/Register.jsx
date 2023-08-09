@@ -10,6 +10,8 @@ import { useCallback, useEffect, useState } from 'react';
 export const Register = () => {
     const navigate = useNavigate();
     const [validationErrors, setValidationErrors] = useState({});
+
+    // State pour stocker les données du formulaire d'inscription
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -19,26 +21,31 @@ export const Register = () => {
 
     const { username, email, password, registrationError } = formData;
 
+    //Gestionnaire pour soumettre le formulaire
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
         try {
+            // Validation des données du formulaire avec le schéma Yup
             await registerSchema.validate(formData, { abortEarly: false });
 
-            if (isEmpty(username)) {
-                throw new Error('Le nom d\'utilisateur est requis.');
-            }
+            // Validator une autre bibliothèque que j'ai abbandoner quand j'ai découvert yup
+            // if (isEmpty(username)) {
+            //     throw new Error('Le nom d\'utilisateur est requis.');
+            // }
 
-            if (!isEmail(email)) {
-                throw new Error('Veuillez fournir une adresse e-mail valide.');
-            }
+            // if (!isEmail(email)) {
+            //     throw new Error('Veuillez fournir une adresse e-mail valide.');
+            // }
 
-            if (!isLength(password, { min: 8 })) {
-                throw new Error('Le mot de passe doit comporter au moins 8 caractères.');
-            }
+            // if (!isLength(password, { min: 8 })) {
+            //     throw new Error('Le mot de passe doit comporter au moins 8 caractères.');
+            // }
 
+            // Appel à la fonction d'inscription depuis l'API
             await register(username, email, password);
 
+            // Réinitialisation des données du formulaire et affichage d'un message de succès
             setFormData({
                 username: '',
                 email: '',
@@ -65,6 +72,7 @@ export const Register = () => {
         }
     }, [formData, navigate, email, username, password]);
 
+    // Gestionnaire pour le changement de saisie dans le formulaire
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
@@ -74,14 +82,16 @@ export const Register = () => {
         }));
     };
 
-    useEffect(() => {
-        const canSubmitForm = !isEmpty(username) && isEmail(email) && isLength(password, { min: 8 });
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            canSubmitForm
-        }));
-    }, [username, email, password]);
+    // Effet pour mettre à jour la possibilité de soumettre le formulaire (avec validator)
+    // useEffect(() => {
+    //     const canSubmitForm = !isEmpty(username) && isEmail(email) && isLength(password, { min: 8 });
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         canSubmitForm
+    //     }));
+    // }, [username, email, password]);
 
+    // Schéma de validation Yup pour le formulaire d'inscription
     const registerSchema = Yup.object().shape({
         username: Yup.string().required('Username is required.'),
         email: Yup.string().email('Please provide a valid email address.').required('Email is required.'),
