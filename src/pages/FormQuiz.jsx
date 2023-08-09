@@ -7,8 +7,10 @@ import { StyledIcon } from "../components/Icons"
 import { createQuiz } from "../api"
 import { Btn, BtnCreate } from "../components/Buttons"
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/AuthProvider';
 
 export const FormQuiz = ({ categoriesList }) => {
+    const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
     const [quizData, setQuizData] = useState({
         title: "",
@@ -23,6 +25,7 @@ export const FormQuiz = ({ categoriesList }) => {
         category: ""
     });
 
+    //utilisation de ma dépendance yup qui est un validateur de saisie.Ce schéma de validation garantit que les données soumises dans le formulaire respectent certaines règles.
     const validationSchema = Yup.object().shape({
         title: Yup.string().required("Title is required"),
         color: Yup.string().required("Color is required"),
@@ -38,10 +41,12 @@ export const FormQuiz = ({ categoriesList }) => {
         )
     });
 
+    // Utilisation de useFormik pour gérer le formulaire
     const formik = useFormik({
         initialValues: quizData,
         validationSchema,
         onSubmit: async (values) => {
+            // Mise à jour des solutions pour correspondre au format attendu par le serveur
             const updatedQuestions = values.questions.map(question => ({
                 ...question,
                 solution: question.solution
@@ -49,9 +54,10 @@ export const FormQuiz = ({ categoriesList }) => {
 
             console.log(values);
             try {
-                // requete post 
+                // Appel à l'API pour créer le quiz
                 const { quiz } = await createQuiz(values.title, values.color, updatedQuestions, values.category);
                 console.log(quiz);
+                // reset de mon setter avant la redirection (pour mes test)
                 // setQuizData({
                 //     title: "",
                 //     color: "#000000",
@@ -71,6 +77,7 @@ export const FormQuiz = ({ categoriesList }) => {
         }
     })
 
+     // Gestion des changements de question
     const handleQuestionChange = (event, index) => {
         const { value } = event.target;
         const updatedQuestions = [...formik.values.questions];
@@ -78,6 +85,7 @@ export const FormQuiz = ({ categoriesList }) => {
         formik.setFieldValue("questions", updatedQuestions);
     };
 
+    // Gestion des changements de réponse
     const handleAnswerChange = (event, questionIndex, answerIndex) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
@@ -85,6 +93,7 @@ export const FormQuiz = ({ categoriesList }) => {
         formik.setFieldValue("questions", questions);
     }
 
+    // Gestion des changements de solution
     const handleSolutionChange = (event, index) => {
         const { value } = event.target;
         const questions = [...formik.values.questions];
@@ -92,6 +101,7 @@ export const FormQuiz = ({ categoriesList }) => {
         formik.setFieldValue("questions", questions);
     }
 
+    // Ajout d'une nouvelle question
     const addQuestion = () => {
         const updatedQuestions = [...formik.values.questions];
         updatedQuestions.push({
@@ -104,154 +114,165 @@ export const FormQuiz = ({ categoriesList }) => {
 
     const placeholders = ["One", "Two", "Three"];
 
-    return (
-        <FormPage>
-            <header>
-                <Link to="/">
-                    <StyledIcon src="/icons/logo.png" alt="logo" />
-                </Link>
-            </header>
-            <h1>🎨Add your Quiz🎨</h1>
-            <form onSubmit={formik.handleSubmit}>
-                <FormContentContainer>
-                    <FormContent>
-                        <h3 htmlFor="title">Title</h3>
-                        <input
-                            id="title"
-                            name="title"
-                            value={formik.values.title}
-                            placeholder='My quiz'
-                            onChange={formik.handleChange}
-                        />
-                        {formik.errors.title && formik.touched.title && (
-                            <div className="error-message">{formik.errors.title}</div>
-                        )}
-                    </FormContent>
-                    <FormContent>
-                        <h3 htmlFor="color">Color</h3>
-                        <input
-                            id="color"
-                            type="color"
-                            name="color"
-                            style={{ width: '2.5rem' }}
-                            value={formik.values.color}
-                            onChange={formik.handleChange}
-                        />
-                        {formik.errors.color && formik.touched.color && (
-                            <div className="error-message">{formik.errors.color}</div>
-                        )}
-                    </FormContent>
-                </FormContentContainer>
-                <FormContentContainer>
-                    <FormContent>
-                        <h3 htmlFor="category">Category</h3>
-                        <select
-                            style={{width:"20rem", height:"1.8rem"}}
-                            id="category"
-                            name="category"
-                            value={formik.values.category}
-                            onChange={formik.handleChange}
-                        >
-                            <option value="" disabled>
-                                Select a category
-                            </option>
-                            {categoriesList.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
-                        {formik.errors.category && formik.touched.category && (
-                            <div className="error-message">{formik.errors.category}</div>
-                        )}
-                    </FormContent>
-                </FormContentContainer>
-
-                {formik.values.questions.map((question, index) => (
-                    <div key={index} className="question-container">
+    if (!isLoggedIn) {
+        // Rediriger ou afficher un message aux utilisateurs non connectés
+        return (
+            <div>
+                <p>Veuillez vous connecter pour accéder à cette page.</p>
+                <Link to="/logIn">Se connecter</Link>
+            </div>
+        );
+    } else {
+        return (
+            // Affichage du formulaire 
+            <FormPage>
+                <header>
+                    <Link to="/">
+                        <StyledIcon src="/icons/logo.png" alt="logo" />
+                    </Link>
+                </header>
+                <h1>🎨Add your Quiz🎨</h1>
+                <form onSubmit={formik.handleSubmit}>
+                    <FormContentContainer>
                         <FormContent>
-                            <h3 htmlFor={`question-${index}`}>Question {index + 1}</h3>
+                            <h3 htmlFor="title">Title</h3>
                             <input
-                                id={`question-${index}`}
-                                name={`questions[${index}].question`}
-                                placeholder='My question'
-                                value={question.question}
-                                onChange={(event) => handleQuestionChange(event, index)}
+                                id="title"
+                                name="title"
+                                value={formik.values.title}
+                                placeholder='My quiz'
+                                onChange={formik.handleChange}
                             />
-                            {formik.errors.questions &&
-                                formik.touched.questions &&
-                                formik.errors.questions[index] &&
-                                formik.touched.questions[index] && (
-                                    <div className="error-message">{formik.errors.questions[index].question}</div>
-                                )}
+                            {formik.errors.title && formik.touched.title && (
+                                <div className="error-message">{formik.errors.title}</div>
+                            )}
                         </FormContent>
-
                         <FormContent>
-                            <h3>Answers</h3>
-                            {question.answers.map((answer, answerIndex) => (
-                                <div key={answerIndex} className="answer-container">
-                                    <div>
-                                        <p>{answerIndex + 1} <input
-                                            type="text"
-                                            name={`questions[${index}].answers[${answerIndex}]`}
-                                            value={answer}
-                                            placeholder={placeholders[answerIndex]}
-                                            onChange={(event) =>
-                                                handleAnswerChange(event, index, answerIndex)
-                                            }
-                                        />
-                                        </p>
-
-                                    </div>
-                                    {formik.errors.questions &&
-                                        formik.touched.questions &&
-                                        formik.errors.questions[index] &&
-                                        formik.touched.questions[index] &&
-                                        formik.errors.questions[index].answers &&
-                                        formik.touched.questions[index].answers &&
-                                        formik.errors.questions[index].answers[answerIndex] &&
-                                        formik.touched.questions[index].answers[answerIndex] && (
-                                            <div className="error-message">
-                                                {formik.errors.questions[index].answers[answerIndex]}
-                                            </div>
-                                        )}
-                                </div>
-                            ))}
+                            <h3 htmlFor="color">Color</h3>
+                            <input
+                                id="color"
+                                type="color"
+                                name="color"
+                                style={{ width: '2.5rem' }}
+                                value={formik.values.color}
+                                onChange={formik.handleChange}
+                            />
+                            {formik.errors.color && formik.touched.color && (
+                                <div className="error-message">{formik.errors.color}</div>
+                            )}
                         </FormContent>
-
+                    </FormContentContainer>
+                    <FormContentContainer>
                         <FormContent>
-                            <h3 htmlFor={`solution-${index}`}>Solution</h3>
+                            <h3 htmlFor="category">Category</h3>
                             <select
-                                name={`questions[${index}].solution`}
-                                value={formik.values.questions[index].solution}
-                                onChange={(event) => handleSolutionChange(event, index)}
+                                style={{ width: "20rem", height: "1.8rem" }}
+                                id="category"
+                                name="category"
+                                value={formik.values.category}
+                                onChange={formik.handleChange}
                             >
                                 <option value="" disabled>
-                                    Select a solution
+                                    Select a category
                                 </option>
-                                {new Array(3).fill(null).map((_, solution) => (
-                                    <option key={solution} value={solution}>
-                                        {solution + 1}
+                                {categoriesList.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
                                     </option>
                                 ))}
                             </select>
-
-                            {formik.errors.questions &&
-                                formik.touched.questions &&
-                                formik.errors.questions[index] &&
-                                formik.touched.questions[index] &&
-                                formik.errors.questions[index].solution &&
-                                formik.touched.questions[index].solution && (
-                                    <div className="error-message">{formik.errors.questions[index].solution}</div>
-                                )}
+                            {formik.errors.category && formik.touched.category && (
+                                <div className="error-message">{formik.errors.category}</div>
+                            )}
                         </FormContent>
-                    </div>
-                ))}
+                    </FormContentContainer>
 
-                <Btn type="button" onClick={addQuestion}>Add a question</Btn>
-                <BtnCreate type="submit">Create</BtnCreate>
+                    {formik.values.questions.map((question, index) => (
+                        <div key={index} className="question-container">
+                            <FormContent>
+                                <h3 htmlFor={`question-${index}`}>Question {index + 1}</h3>
+                                <input
+                                    id={`question-${index}`}
+                                    name={`questions[${index}].question`}
+                                    placeholder='My question'
+                                    value={question.question}
+                                    onChange={(event) => handleQuestionChange(event, index)}
+                                />
+                                {formik.errors.questions &&
+                                    formik.touched.questions &&
+                                    formik.errors.questions[index] &&
+                                    formik.touched.questions[index] && (
+                                        <div className="error-message">{formik.errors.questions[index].question}</div>
+                                    )}
+                            </FormContent>
 
-            </form>
-        </FormPage>
-    );
+                            <FormContent>
+                                <h3>Answers</h3>
+                                {question.answers.map((answer, answerIndex) => (
+                                    <div key={answerIndex} className="answer-container">
+                                        <div>
+                                            <p>{answerIndex + 1} <input
+                                                type="text"
+                                                name={`questions[${index}].answers[${answerIndex}]`}
+                                                value={answer}
+                                                placeholder={placeholders[answerIndex]}
+                                                onChange={(event) =>
+                                                    handleAnswerChange(event, index, answerIndex)
+                                                }
+                                            />
+                                            </p>
+
+                                        </div>
+                                        {formik.errors.questions &&
+                                            formik.touched.questions &&
+                                            formik.errors.questions[index] &&
+                                            formik.touched.questions[index] &&
+                                            formik.errors.questions[index].answers &&
+                                            formik.touched.questions[index].answers &&
+                                            formik.errors.questions[index].answers[answerIndex] &&
+                                            formik.touched.questions[index].answers[answerIndex] && (
+                                                <div className="error-message">
+                                                    {formik.errors.questions[index].answers[answerIndex]}
+                                                </div>
+                                            )}
+                                    </div>
+                                ))}
+                            </FormContent>
+
+                            <FormContent>
+                                <h3 htmlFor={`solution-${index}`}>Solution</h3>
+                                <select
+                                    name={`questions[${index}].solution`}
+                                    value={formik.values.questions[index].solution}
+                                    onChange={(event) => handleSolutionChange(event, index)}
+                                >
+                                    <option value="" disabled>
+                                        Select a solution
+                                    </option>
+                                    {new Array(3).fill(null).map((_, solution) => (
+                                        <option key={solution} value={solution}>
+                                            {solution + 1}
+                                        </option>
+                                    ))}
+                                </select>
+
+                                {formik.errors.questions &&
+                                    formik.touched.questions &&
+                                    formik.errors.questions[index] &&
+                                    formik.touched.questions[index] &&
+                                    formik.errors.questions[index].solution &&
+                                    formik.touched.questions[index].solution && (
+                                        <div className="error-message">{formik.errors.questions[index].solution}</div>
+                                    )}
+                            </FormContent>
+                        </div>
+                    ))}
+
+                    <Btn type="button" onClick={addQuestion}>Add a question</Btn>
+                    <BtnCreate type="submit">Create</BtnCreate>
+
+                </form>
+            </FormPage>
+        );
+    }
 };
