@@ -9,6 +9,7 @@ export const FormPage = styled.div`
 
     h1{
         text-align:center;
+        font-size:2rem;
     }
 
     form{
