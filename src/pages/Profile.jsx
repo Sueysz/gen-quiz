@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../utils/AuthProvider';
 import { fetchUserinfo } from '../api';
 import { ProfilePage } from '../components/ProfilePage';
@@ -8,14 +8,18 @@ import { StyledIcon } from '../components/Icons';
 export const Profile = () => {
     const { isLoggedIn } = useAuth();
     const [user, setUser] = useState([]);
+    const [tokenExpired, setTokenExpired] = useState(false); // state pour gérer l'alerte
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const userData = await fetchUserinfo();
-                setUser(userData)
+                setUser(userData);
             } catch (error) {
                 console.log('Error fetching user information:', error);
+                if (error.response && error.response.status === 401 && error.response.data.message === "Token expired. User has been logged out.") {
+                    setTokenExpired(true);
+                }
             }
         };
         if (isLoggedIn) {
@@ -32,6 +36,7 @@ export const Profile = () => {
                 {isLoggedIn ? (
                     user ? (
                         <div>
+                            {tokenExpired && <p style={{ color: 'red' }}>Votre session est expirer, veuillez vous reconnecter</p>}
                             <h1>Welcome, {user.username}! 🤹‍♀️</h1>
                             <p>Email: {user.email}</p>
                         </div>
