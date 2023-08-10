@@ -145,10 +145,12 @@ export const createQuiz = async (title, color, questions, category) => {
     };
 
     try {
+        const token = localStorage.getItem('token');
         const response = await fetch("http://localhost:8800/createQuiz", {
             method: "POST",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(quizData)
         });
