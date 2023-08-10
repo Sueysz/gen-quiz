@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import PropTypes from "prop-types"
 
 // Crée un contexte pour l'authentification
 const AuthContext = createContext();
@@ -29,6 +30,10 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 // Crée un hook personnalisé pour accéder au contexte d'authentification
 export const useAuth = () => useContext(AuthContext);
+

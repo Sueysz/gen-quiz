@@ -64,7 +64,7 @@ export const Login = () => {
                 alert(error)
             }
         }
-    }, [formData, navigate]);
+    }, [formData, navigate,]);
 
     // Schéma de validation Yup pour le formulaire de connexion
     const loginSchema = Yup.object().shape({
@@ -100,7 +100,7 @@ export const Login = () => {
                     {validationErrors.password && <span>{validationErrors.password}</span>}
                     <ConfirmButton type="submit">Login</ConfirmButton>
                     <span>
-                        Don't have an account? <Link to="/register">Register</Link>
+                        Don&apos;t have an account? <Link to="/register">Register</Link>
                     </span>
                 </form>
             </LoginPage>
