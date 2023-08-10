@@ -8,11 +8,12 @@ import { createQuiz } from "../api"
 import { Btn, BtnCreate } from "../components/Buttons"
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthProvider';
+import PropTypes from 'prop-types'
 
 export const FormQuiz = ({ categoriesList }) => {
     const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
-    const [quizData, setQuizData] = useState({
+    const [quizData] = useState({
         title: "",
         color: "#000000",
         questions: [
@@ -275,4 +276,9 @@ export const FormQuiz = ({ categoriesList }) => {
             </FormPage>
         );
     }
+};
+
+
+FormQuiz.propTypes = {
+    categoriesList: PropTypes.array.isRequired, // Ou le type approprié pour votre cas
 };
