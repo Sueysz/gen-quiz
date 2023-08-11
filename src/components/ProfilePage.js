@@ -7,4 +7,11 @@ export const ProfilePage = styled.div`
     p{
         text-align:center;
     }
+    .grid{
+        gap: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding:15px
+    }
 `

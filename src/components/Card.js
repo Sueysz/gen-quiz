@@ -33,6 +33,32 @@ export const Card = styled(Link)`
     }
 `;
 
+export const CardList = styled.button`
+    display: flex;
+    width: 200px;
+    height: 150px;
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+    border: 1px solid white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #e7e6f6e1;
+    transition: 100ms;
+    background-color: #fafafa;
+        p{
+            text-align:center;
+        }
+        &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+    
+    @media screen and (max-width:450px){
+        width: 390px;
+    }
+`
+
 export const CardAdd = styled(Link)`
     width: 200px;
     display: flex;
