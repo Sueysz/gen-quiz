@@ -14,7 +14,11 @@ export const AuthProvider = ({ children }) => {
         isLoggedIn,
 
         // Fonction pour rafraîchir la page en changeant le state refreshPage
-        handleRefreshPage: () => setRefreshPage(prevState => !prevState)
+        handleRefreshPage: () => setRefreshPage(prevState => !prevState),
+        logout: () => {
+            localStorage.removeItem('token'); // Supprime le token du stockage local
+            setIsLoggedIn(false); // Met à jour l'état d'authentification
+        }
     }), [isLoggedIn, setRefreshPage]);
 
     // Effet pour vérifier l'état d'authentification au chargement de la page
