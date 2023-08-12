@@ -168,6 +168,29 @@ export const createQuiz = async (title, color, questions, category) => {
     }
 };
 
+export const deleteQuiz = async (quizId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:8800/deleteQuiz/${quizId}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(`Quiz deletion failed: ${errorMessage}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error while deleting quiz:', error);
+        throw error;
+    }
+};
+
 //fonction pour récuperer les information d'users
 export const fetchUserinfo = async () => {
     try {
