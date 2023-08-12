@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Btn } from "./Buttons";
 
 export const ModalContainer = styled.div`
     position: fixed;
@@ -23,7 +24,7 @@ export const ModalContent = styled.div`
     overflow: auto; 
 `;
 
-export const CloseButton = styled.button`
+export const CloseButton = styled(Btn)`
     position:absolute;
     top: 10px;
     right: 10px;
@@ -35,3 +36,8 @@ export const CloseButton = styled.button`
     border-radius: 3px;
     cursor: pointer;
 `;
+
+export const DeleteContainer = styled.div`
+    display:flex;
+    justify-content:center;
+`

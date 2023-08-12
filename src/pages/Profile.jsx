@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { StyledIcon } from '../components/Icons';
 import { CardList } from '../components/Card';
 import Modal from '../utils/Modal';
-import { CloseButton } from '../components/Modal';
+import {CloseButton, DeleteContainer } from '../components/Modal';
+import { Btn } from '../components/Buttons';
 
 export const Profile = () => {
     const { isLoggedIn, logout } = useAuth();
@@ -109,7 +110,9 @@ export const Profile = () => {
                                     </div>
                                 ))}
                             </div>
-                            <button onClick={openDeleteConfirmationModal}>Delete this quiz</button>
+                            <DeleteContainer>
+                                <Btn onClick={openDeleteConfirmationModal}>Delete this quiz</Btn>
+                            </DeleteContainer>
                         </Modal>
                     )}
                     {showDeleteConfirmationModal && (
