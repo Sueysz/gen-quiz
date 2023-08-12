@@ -13,6 +13,7 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalContent = styled.div`
+    position:relative;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -23,6 +24,10 @@ export const ModalContent = styled.div`
 `;
 
 export const CloseButton = styled.button`
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    transform: translateY(-50%);
     margin-top: 10px;
     padding: 5px 10px;
     background-color: #ccc;
