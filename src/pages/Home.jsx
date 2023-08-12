@@ -15,7 +15,7 @@ export const Home = () => {
     const [categoriesQuiz, setCategoriesQuiz] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [filteredQuizList, setFilteredQuizList] = useState([]);
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, handleRefreshPage } = useAuth();
 
     // Effect pour charger les données initiales (quiz, catégories et relation)
     useEffect(() => {
@@ -28,7 +28,10 @@ export const Home = () => {
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
-    }, []);
+            if (!isLoggedIn) {
+                handleRefreshPage();
+            }
+    }, [isLoggedIn,handleRefreshPage]);
 
     // Effect pour filtrer la liste des quiz en fonction de la catégorie sélectionnée
     useEffect(() => {
