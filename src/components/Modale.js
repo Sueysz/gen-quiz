@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Btn } from "./Buttons";
 
-export const ModalContainer = styled.div`
+export const ModaleContainer = styled.div`
     position: fixed;
     top: 0;
     left: 0;
@@ -13,7 +13,7 @@ export const ModalContainer = styled.div`
     align-items: center;
 `;
 
-export const ModalContent = styled.div`
+export const ModaleContent = styled.div`
     position:relative;
     background-color: white;
     padding: 20px;

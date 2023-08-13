@@ -5,8 +5,8 @@ import { ProfilePage } from '../components/ProfilePage';
 import { Link } from 'react-router-dom';
 import { StyledIcon } from '../components/Icons';
 import { CardList } from '../components/Card';
-import Modal from '../utils/Modal';
-import {CloseButton, DeleteContainer } from '../components/Modal';
+import Modale from '../utils/Modale';
+import {CloseButton, DeleteContainer } from '../components/Modale';
 import { Btn } from '../components/Buttons';
 
 export const Profile = () => {
@@ -19,8 +19,8 @@ export const Profile = () => {
     const [quiz, setQuiz] = useState([]);
     const [tokenExpired, setTokenExpired] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
+    const [showModale, setShowModale] = useState(false);
+    const [showDeleteConfirmationModale, setShowDeleteConfirmationModale] = useState(false);
 
     const fetchUserData = async () => {
         try {
@@ -47,26 +47,26 @@ export const Profile = () => {
             try {
                 await deleteQuiz(selectedQuiz.id);
                 setQuiz(prevQuiz => prevQuiz.filter(quizItem => quizItem.id !== selectedQuiz.id));
-                closeModal();
+                closeModale();
             } catch (error) {
                 console.error('Error deleting quiz:', error);
             }
         }
     }, [selectedQuiz]);
 
-    const openModal = (quizItem) => {
+    const openModale = (quizItem) => {
         setSelectedQuiz(quizItem);
-        setShowModal(true);
+        setShowModale(true);
     };
 
-    const openDeleteConfirmationModal = () => {
-        setShowDeleteConfirmationModal(true);
+    const openDeleteConfirmationModale = () => {
+        setShowDeleteConfirmationModale(true);
     };
 
-    const closeModal = () => {
+    const closeModale = () => {
         setSelectedQuiz(null);
-        setShowModal(false);
-        setShowDeleteConfirmationModal(false);
+        setShowModale(false);
+        setShowDeleteConfirmationModale(false);
     };
 
     return (
@@ -86,15 +86,15 @@ export const Profile = () => {
                         <h1>Your QUIZ:</h1>
                         <div className='grid'>
                             {quiz.map((quizItem) => (
-                                <CardList style={{ backgroundColor: quizItem.color }} key={quizItem.id} onClick={() => openModal(quizItem)}>
+                                <CardList style={{ backgroundColor: quizItem.color }} key={quizItem.id} onClick={() => openModale(quizItem)}>
                                     <p>{quizItem.title}</p>
                                 </CardList>
                             ))}
                         </div>
                     </div>
-                    {showModal && selectedQuiz && (
-                        <Modal onClose={closeModal}>
-                            <CloseButton onClick={closeModal}>X</CloseButton>
+                    {showModale && selectedQuiz && (
+                        <Modale onClose={closeModale}>
+                            <CloseButton onClick={closeModale}>X</CloseButton>
                             <h1>{selectedQuiz.title}</h1>
                             <div>
                                 {selectedQuiz.questions.map((qa, index) => (
@@ -111,16 +111,16 @@ export const Profile = () => {
                                 ))}
                             </div>
                             <DeleteContainer>
-                                <Btn onClick={openDeleteConfirmationModal}>Delete this quiz</Btn>
+                                <Btn onClick={openDeleteConfirmationModale}>Delete this quiz</Btn>
                             </DeleteContainer>
-                        </Modal>
+                        </Modale>
                     )}
-                    {showDeleteConfirmationModal && (
-                        <Modal>
+                    {showDeleteConfirmationModale && (
+                        <Modale>
                             <h1>Are you sure, you gonna delete this quiz ?</h1>
                             <button onClick={deleteQuizHandler}>Oui</button>
-                            <button onClick={closeModal}>Annuler</button>
-                        </Modal>
+                            <button onClick={closeModale}>Annuler</button>
+                        </Modale>
                     )}
                 </div>
             ) : (
