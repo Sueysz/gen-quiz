@@ -1,7 +1,7 @@
 
 import { Logo } from './Logo'
 import { Logout } from '../pages/Logout'
-import { LinkButton } from './Buttons'
+import { LinkButton } from './style/Buttons'
 import { useAuth } from '../utils/AuthProvider'
 
 export const UserAuthProfile = () => {

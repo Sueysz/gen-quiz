@@ -1,14 +1,14 @@
 import * as Yup from 'yup';
 import { Link } from "react-router-dom"
-import { FormContent, FormContentContainer, FormPage } from "../components/FormPage"
+import { FormContent, FormContentContainer, FormPage } from "../components/style/FormPage"
 import { useState } from "react"
 import { useFormik } from "formik"
-import { StyledIcon } from "../components/Icons"
 import { createQuiz } from "../api"
-import { Btn, BtnCreate } from "../components/Buttons"
+import { Btn, BtnCreate } from "../components/style/Buttons"
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthProvider';
 import PropTypes from 'prop-types'
+import { StyledIcon } from '../components/style/Icons';
 
 export const FormQuiz = ({ categoriesList }) => {
     const { isLoggedIn } = useAuth();

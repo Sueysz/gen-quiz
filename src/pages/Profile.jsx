@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../utils/AuthProvider';
 import { deleteQuiz, fetchUserinfo } from '../api';
-import { ProfilePage } from '../components/ProfilePage';
+import { ProfilePage } from '../components/style/ProfilePage';
 import { Link } from 'react-router-dom';
-import { StyledIcon } from '../components/Icons';
-import { CardList } from '../components/Card';
+import { StyledIcon } from '../components/style/Icons';
+import { CardList } from '../components/style/Card';
 import Modale from '../utils/Modale';
-import {CloseButton, DeleteContainer } from '../components/Modale';
-import { Btn } from '../components/Buttons';
+import {CloseButton, DeleteContainer } from '../components/style/Modale';
+import { Btn } from '../components/style/Buttons';
 
 export const Profile = () => {
     const { isLoggedIn, logout } = useAuth();

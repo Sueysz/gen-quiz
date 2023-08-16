@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Btn } from './Buttons'
+import { Btn } from './style/Buttons'
 
 export const CategorySelector = ({ categoriesList, handleCategorySelection, handleResetCategorySelection }) => {
     return (

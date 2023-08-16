@@ -1,5 +1,5 @@
 import { useAuth } from '../utils/AuthProvider';
-import { HomePage } from '../components/HomePage';
+import { HomePage } from '../components/style/HomePage.js';
 import { fetchCategories, getQuizCategories, listQuiz } from '../api';
 import { useEffect, useState } from 'react';
 import { UserAuthProfile } from '../components/UserAuthProfile';

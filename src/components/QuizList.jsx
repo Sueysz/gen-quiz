@@ -1,4 +1,4 @@
-import { Card, CardAdd } from "./Card"
+import { Card, CardAdd } from "./style/Card"
 import PropTypes from 'prop-types'
 
 export const QuizList = ({isLoggedIn,filteredQuizList}) => {

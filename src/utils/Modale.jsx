@@ -1,4 +1,4 @@
-import { ModaleContainer, ModaleContent } from "../components/Modale";
+import { ModaleContainer, ModaleContent } from "../components/style/Modale";
 import PropTypes from 'prop-types'
 
 const Modale = ({ children, onClose }) => {

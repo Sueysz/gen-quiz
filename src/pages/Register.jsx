@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { register } from '../api';
-import { StyledIcon } from '../components/Icons';
-import { ConfirmButton } from '../components/Buttons';
+import { StyledIcon } from '../components/style/Icons';
+import { ConfirmButton } from '../components/style/Buttons';
 import { Link, useNavigate } from 'react-router-dom';
-import { ErrorMessage, RegisterPage } from '../components/RegisterPage';
-import { isEmail, isEmpty, isLength } from 'validator';
-import { useCallback, useEffect, useState } from 'react';
+import { ErrorMessage, RegisterPage } from '../components/style/RegisterPage';
+// import { isEmail, isEmpty, isLength } from 'validator';
+import { useCallback, useState } from 'react';
 
 export const Register = () => {
     const navigate = useNavigate();

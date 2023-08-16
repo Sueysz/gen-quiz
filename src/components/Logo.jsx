@@ -1,4 +1,4 @@
-import { StyledIcon } from './Icons'
+import { StyledIcon } from './style/Icons'
 
 export const Logo = () => {
     return (

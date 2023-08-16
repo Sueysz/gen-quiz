@@ -2,10 +2,10 @@
 import styled from '@emotion/styled'
 import { getQuiz } from '../api'
 import { fireConfetti } from "../utils/fireConffeti"
-import { Answer, Answers, QuestionsIndex } from '../components/Quiz'
+import { Answer, Answers, QuestionsIndex } from '../components/style/Quiz'
 import { useParams, } from 'react-router-dom'
-import { QuestionContainer } from '../components/QuestionContainer'
-import { LinkButton, ValidationButton } from '../components/Buttons'
+import { QuestionContainer } from '../components/style/QuestionContainer'
+import { LinkButton, ValidationButton } from '../components/style/Buttons'
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { Result } from './Result'
 
