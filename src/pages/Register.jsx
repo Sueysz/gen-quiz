@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { register } from '../api';
-import { StyledIcon } from '../components/style/Icons';
 import { ConfirmButton } from '../components/style/Buttons';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, RegisterPage } from '../components/style/RegisterPage';
 // import { isEmail, isEmpty, isLength } from 'validator';
 import { useCallback, useState } from 'react';
+import { Logo } from '../components/Logo';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -102,9 +102,7 @@ export const Register = () => {
     return (
         <>
             <RegisterPage>
-                <Link to={'/'}>
-                    <StyledIcon src='/icons/logo.png' alt='logo' />
-                </Link>
+                <Logo />
                 <h1>Join the Gen-Quiz community 🐻‍❄️</h1>
                 <form onSubmit={handleSubmit}>
                     <input

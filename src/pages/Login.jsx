@@ -2,10 +2,10 @@ import * as Yup from "yup"
 import { login } from '../api'
 import { useAuth } from '../utils/AuthProvider'
 import { LoginPage } from '../components/style/LoginPage'
-import { StyledIcon } from '../components/style/Icons'
 import { ConfirmButton } from '../components/style/Buttons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCallback, useState } from 'react'
+import { Logo } from "../components/Logo"
 
 export const Login = () => {
 
@@ -75,9 +75,7 @@ export const Login = () => {
     return (
         <>
             <LoginPage>
-                <Link to={'/'}>
-                    <StyledIcon src='/icons/logo.png' alt='logo' />
-                </Link>
+                <Logo/>
                 <h1>Welcome back 👻</h1>
                 <form onSubmit={handleLogin}>
                     <input

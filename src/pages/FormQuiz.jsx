@@ -8,7 +8,7 @@ import { Btn, BtnCreate } from "../components/style/Buttons"
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthProvider';
 import PropTypes from 'prop-types'
-import { StyledIcon } from '../components/style/Icons';
+import { Logo } from '../components/Logo';
 
 export const FormQuiz = ({ categoriesList }) => {
     const { isLoggedIn } = useAuth();
@@ -58,19 +58,6 @@ export const FormQuiz = ({ categoriesList }) => {
                 // Appel à l'API pour créer le quiz
                 const { quiz } = await createQuiz(values.title, values.color, updatedQuestions, values.category);
                 console.log(quiz);
-                // reset de mon setter avant la redirection (pour mes test)
-                // setQuizData({
-                //     title: "",
-                //     color: "#000000",
-                //     questions: [
-                //         {
-                //             question: "",
-                //             answers: ["", "", ""],
-                //             solution: 0,
-                //         }
-                //     ],
-                //     category:"",
-                // });
                 navigate("/");
             } catch (error) {
                 console.error("Error while creating quiz:", error);
@@ -128,9 +115,7 @@ export const FormQuiz = ({ categoriesList }) => {
             // Affichage du formulaire 
             <FormPage>
                 <header>
-                    <Link to="/">
-                        <StyledIcon src="/icons/logo.png" alt="logo" />
-                    </Link>
+                    <Logo/>
                 </header>
                 <h1>🎨Add your Quiz🎨</h1>
                 <form onSubmit={formik.handleSubmit}>

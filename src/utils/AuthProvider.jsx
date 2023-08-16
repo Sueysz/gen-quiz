@@ -26,8 +26,6 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token);
     }, [refreshPage]);
-
-    // Rend le contexte avec la valeur fournie
     return (
         <AuthContext.Provider value={providerValue}>
             { children }
@@ -37,7 +35,11 @@ export const AuthProvider = ({ children }) => {
 AuthProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
-
 // Crée un hook personnalisé pour accéder au contexte d'authentification
 export const useAuth = () => useContext(AuthContext);
+
+
+
+
+
 

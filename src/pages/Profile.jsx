@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../utils/AuthProvider';
 import { deleteQuiz, fetchUserinfo } from '../api';
 import { ProfilePage } from '../components/style/ProfilePage';
-import { Link } from 'react-router-dom';
-import { StyledIcon } from '../components/style/Icons';
 import { CardList } from '../components/style/Card';
 import Modale from '../utils/Modale';
 import {CloseButton, DeleteContainer } from '../components/style/Modale';
 import { Btn } from '../components/style/Buttons';
+import { Logo } from '../components/Logo';
 
 export const Profile = () => {
     const { isLoggedIn, logout } = useAuth();
@@ -71,9 +70,7 @@ export const Profile = () => {
 
     return (
         <ProfilePage>
-            <Link to={'/'}>
-                <StyledIcon src='/icons/logo.png' alt='logo' />
-            </Link>
+            <Logo/>
             {isLoggedIn ? (
                 <div>
                     {tokenExpired && <p style={{ color: 'red' }}>Your session expired, please log in again</p>}

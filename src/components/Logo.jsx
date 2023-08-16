@@ -1,9 +1,10 @@
-import { StyledIcon } from './style/Icons'
+import { Link } from 'react-router-dom'
+import { StyledIcon } from './Style/Icons'
 
 export const Logo = () => {
     return (
-        <div>
+        <Link to={'/'}>
             <StyledIcon src='/icons/logo.png' alt='logo' />
-        </div>
+        </Link>
     )
 }
