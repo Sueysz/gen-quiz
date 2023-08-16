@@ -1,11 +1,10 @@
-import { Logout } from './Logout';
 import { useAuth } from '../utils/AuthProvider';
 import { HomePage } from '../components/HomePage';
 import { fetchCategories, getQuizCategories, listQuiz } from '../api';
-import { Btn, LinkButton } from '../components/Buttons';
-import { StyledIcon } from '../components/Icons';
-import { Card, CardAdd } from '../components/Card';
 import { useEffect, useState } from 'react';
+import { UserAuthProfile } from '../components/UserAuthProfile';
+import { CategorySelector } from '../components/CategorySelector';
+import { QuizList } from '../components/QuizList';
 
 export const Home = () => {
 
@@ -59,44 +58,19 @@ export const Home = () => {
 
     return (
         <HomePage>
-            <div className='wrapper'>
-                <div>
-                    <StyledIcon src='/icons/logo.png' alt='logo' />
-                </div>
-                <div className='userAuthReg'>
-                    {isLoggedIn ? (
-                        <>
-                            <Logout />
-                            <LinkButton to='/profile'>Profile</LinkButton>
-                        </>
-                    ) : (
-                        <LinkButton to='/login'>Log-In</LinkButton>
-                    )}
-                </div>
-            </div>
+            <UserAuthProfile/>
             <h1>👇Choose Your Quiz👇</h1>
-            <div className='grid'>
-                {/* Sélecteur de categories*/}
-                <Btn style={{width:'5rem', cursor:'pointer'}} onClick={()=> handleResetCategorySelection()}>
-                        all
-                </Btn>
-                {categoriesList.map((categorie) => (
-                    <Btn style={{width:'5rem', cursor:'pointer'}} onClick={() => handleCategorySelection(categorie.id)} key={categorie.id}>
-                        {categorie.name}
-                    </Btn>
-                ))}
-            </div>
+            <CategorySelector
+                categoriesList={categoriesList}
+                handleCategorySelection={handleCategorySelection}
+                handleResetCategorySelection={handleResetCategorySelection}
+            />
             
             {/* Affichage des cartes de quiz */}
-            <div className='grid'>
-                {/* Bouton pour ajouter un nouveau quiz, affiché si l'utilisateur est connecté */}
-                {isLoggedIn ? <CardAdd style={{ backgroundColor: 'black' }} to='/FormQuiz' /> : null}
-                {filteredQuizList.map((quiz) => (
-                    <Card to={`quiz/${quiz.id}`} style={{ backgroundColor: quiz.color }} key={quiz.id}>
-                        <p>{quiz.title}</p>
-                    </Card>
-                ))}
-            </div>
+            <QuizList
+                isLoggedIn={isLoggedIn}
+                filteredQuizList={filteredQuizList}
+            />
         </HomePage>
     );
 };
