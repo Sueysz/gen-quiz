@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 import { Link } from "react-router-dom"
 import { FormContent, FormContentContainer, FormPage } from "../components/style/FormPage"
-import { useState } from "react"
 import { useFormik } from "formik"
+import { useState } from "react"
 import { createQuiz } from "../api"
 import { Btn, BtnCreate } from "../components/style/Buttons"
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,8 @@ export const FormQuiz = ({ categoriesList }) => {
         category: ""
     });
 
-    //utilisation de ma dépendance yup qui est un validateur de saisie.Ce schéma de validation garantit que les données soumises dans le formulaire respectent certaines règles.
+    {/*utilisation de ma dépendance yup qui est un validateur de saisie.Ce schéma de validation garantit que 
+    les données soumises dans le formulaire respectent certaines règles.*/}
     const validationSchema = Yup.object().shape({
         title: Yup.string().required("Title is required"),
         color: Yup.string().required("Color is required"),
@@ -65,7 +66,7 @@ export const FormQuiz = ({ categoriesList }) => {
         }
     })
 
-     // Gestion des changements de question
+    // Gestion des changements de question
     const handleQuestionChange = (event, index) => {
         const { value } = event.target;
         const updatedQuestions = [...formik.values.questions];
@@ -115,7 +116,7 @@ export const FormQuiz = ({ categoriesList }) => {
             // Affichage du formulaire 
             <FormPage>
                 <header>
-                    <Logo/>
+                    <Logo />
                 </header>
                 <h1>🎨Add your Quiz🎨</h1>
                 <form onSubmit={formik.handleSubmit}>
@@ -197,17 +198,19 @@ export const FormQuiz = ({ categoriesList }) => {
                                 {question.answers.map((answer, answerIndex) => (
                                     <div key={answerIndex} className="answer-container">
                                         <div>
-                                            <p>{answerIndex + 1} <input
-                                                type="text"
-                                                name={`questions[${index}].answers[${answerIndex}]`}
-                                                value={answer}
-                                                placeholder={placeholders[answerIndex]}
-                                                onChange={(event) =>
-                                                    handleAnswerChange(event, index, answerIndex)
-                                                }
-                                            />
+                                            <p>{answerIndex + 1}
+                                                {/* Champ de saisie lié à Formik */}
+                                                <input
+                                                    type="text"
+                                                    name={`questions[${index}].answers[${answerIndex}]`}
+                                                    value={answer}
+                                                    placeholder={placeholders[answerIndex]}
+                                                    onChange={(event) =>
+                                                        handleAnswerChange(event, index, answerIndex)
+                                                    }
+                                                />
                                             </p>
-
+                                            {/* Vérification des erreurs liées aux réponses à l'aide de Formik */}
                                         </div>
                                         {formik.errors.questions &&
                                             formik.touched.questions &&
@@ -218,6 +221,7 @@ export const FormQuiz = ({ categoriesList }) => {
                                             formik.errors.questions[index].answers[answerIndex] &&
                                             formik.touched.questions[index].answers[answerIndex] && (
                                                 <div className="error-message">
+                                                    {/* Affichage du message d'erreur associé à cette réponse */}
                                                     {formik.errors.questions[index].answers[answerIndex]}
                                                 </div>
                                             )}
