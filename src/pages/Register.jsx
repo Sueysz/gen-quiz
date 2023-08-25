@@ -135,7 +135,7 @@ export const Register = () => {
                     <ConfirmButton type="submit">
                         Register
                     </ConfirmButton>
-                    {registrationError && <ErrorMessage>{registrationError}</ErrorMessage>}
+                    {registrationError && <ErrorMessage>Erreur pendant la création du compte</ErrorMessage>}
                 </form>
             </RegisterPage>
         </>
