@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../utils/AuthProvider';
 import { deleteQuiz, fetchUserinfo } from '../api';
-import { ProfilePage } from '../components/style/ProfilePage';
+import { ProfilImg, ProfilInfo, ProfilePage } from '../components/style/ProfilePage';
 import { CardList } from '../components/style/Card';
 import Modale from '../utils/Modale';
 import {CloseButton, DeleteContainer } from '../components/style/Modale';
@@ -13,7 +13,8 @@ export const Profile = () => {
     const [user, setUser] = useState({
         id: 0,
         username: '',
-        email: ''
+        email: '',
+        profilPicture: null
     });
     const [quiz, setQuiz] = useState([]);
     const [tokenExpired, setTokenExpired] = useState(false);
@@ -68,6 +69,17 @@ export const Profile = () => {
         setShowDeleteConfirmationModale(false);
     };
 
+    const handleProfilPictureChange = (event) =>{
+        const file = event.target.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = () => {
+                setUser(prevUser => ({...prevUser, profilPicture: reader.result}));
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     return (
         <ProfilePage>
             <Logo/>
@@ -75,10 +87,13 @@ export const Profile = () => {
                 <div>
                     {tokenExpired && <p style={{ color: 'red' }}>Your session expired, please log in again</p>}
                     <h1>Welcome, {user.username}! 🤹‍♀️</h1>
-                    <div>
                         <h1>User Informations</h1>
+                    <ProfilInfo>
+                        <label htmlFor="profile-photo">Choisi ta photo:</label>
+                        <input type='file' accept='image/jpeg, image/png' onChange={handleProfilPictureChange} />
+                        {user.profilPicture && <ProfilImg src={user.profilPicture} alt='Profil' />}
                         <p>Email: {user.email}</p>
-                    </div>
+                    </ProfilInfo>
                     <div>
                         <h1>Your QUIZ:</h1>
                         <div className='grid'>
