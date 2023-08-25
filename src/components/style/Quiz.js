@@ -25,6 +25,10 @@ export const Answer = styled.button`
 &:hover {
     background-color: ${props => props.selected ? 'rgb(0,0,0)' : 'rgba(1,1,1,0.4)'};
 }
+
+@media screen and (max-width:450px){
+        width: 390px;
+    }
 `;
 
 export const QuestionsIndex= styled.p`
