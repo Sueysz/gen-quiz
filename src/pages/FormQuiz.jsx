@@ -29,16 +29,16 @@ export const FormQuiz = ({ categoriesList }) => {
     {/*utilisation de ma dépendance yup qui est un validateur de saisie.Ce schéma de validation garantit que 
     les données soumises dans le formulaire respectent certaines règles.*/}
     const validationSchema = Yup.object().shape({
-        title: Yup.string().required("Title is required"),
-        color: Yup.string().required("Color is required"),
+        title: Yup.string().required("Le titre est requis"),
+        color: Yup.string().required("La couleur est requise"),
         questions: Yup.array().of(
             Yup.object().shape({
-                question: Yup.string().required("Question is required"),
+                question: Yup.string().required("La question est requis"),
                 answers: Yup.array()
-                    .of(Yup.string().required("Answer is required"))
-                    .min(3, "Exactly 3 answers are required")
-                    .max(3, "Exactly 3 answers are required"),
-                solution: Yup.number().required("Solution is required").oneOf([0, 1, 2], "Invalid solution")
+                    .of(Yup.string().required("Les réponses sont requises"))
+                    .min(3, "3 réponses minimum")
+                    .max(3, "3 réponses maximum"),
+                solution: Yup.number().required("La solution est requise").oneOf([0, 1, 2], "Invalid solution")
             })
         )
     });
@@ -57,11 +57,16 @@ export const FormQuiz = ({ categoriesList }) => {
             console.log(values);
             try {
                 // Appel à l'API pour créer le quiz
-                const { quiz } = await createQuiz(values.title, values.color, updatedQuestions, values.category);
+                const { quiz } = await createQuiz(
+                    values.title,
+                    values.color,
+                    updatedQuestions,
+                    values.category
+                );
                 console.log(quiz);
                 navigate("/");
             } catch (error) {
-                console.error("Error while creating quiz:", error);
+                console.error("Erreur pendant la création du quiz:", error);
             }
         }
     })
@@ -118,16 +123,16 @@ export const FormQuiz = ({ categoriesList }) => {
                 <header>
                     <Logo />
                 </header>
-                <h1>🎨Add your Quiz🎨</h1>
+                <h1>🎨Ajoute ton Quiz🎨</h1>
                 <form onSubmit={formik.handleSubmit}>
                     <FormContentContainer>
                         <FormContent>
-                            <h3 htmlFor="title">Title</h3>
+                            <h3 htmlFor="title">Titre</h3>
                             <input
                                 id="title"
                                 name="title"
                                 value={formik.values.title}
-                                placeholder='My quiz'
+                                placeholder='Mon quiz'
                                 onChange={formik.handleChange}
                             />
                             {formik.errors.title && formik.touched.title && (
@@ -135,7 +140,7 @@ export const FormQuiz = ({ categoriesList }) => {
                             )}
                         </FormContent>
                         <FormContent>
-                            <h3 htmlFor="color">Color</h3>
+                            <h3 htmlFor="color">Couleur</h3>
                             <input
                                 id="color"
                                 type="color"
@@ -151,7 +156,7 @@ export const FormQuiz = ({ categoriesList }) => {
                     </FormContentContainer>
                     <FormContentContainer>
                         <FormContent>
-                            <h3 htmlFor="category">Category</h3>
+                            <h3 htmlFor="category">Categorie</h3>
                             <select
                                 style={{ width: "20rem", height: "1.8rem" }}
                                 id="category"
@@ -160,7 +165,7 @@ export const FormQuiz = ({ categoriesList }) => {
                                 onChange={formik.handleChange}
                             >
                                 <option value="" disabled>
-                                    Select a category
+                                    Choisi une catégorie
                                 </option>
                                 {categoriesList.map((category) => (
                                     <option key={category.id} value={category.id}>
@@ -181,7 +186,7 @@ export const FormQuiz = ({ categoriesList }) => {
                                 <input
                                     id={`question-${index}`}
                                     name={`questions[${index}].question`}
-                                    placeholder='My question'
+                                    placeholder='Ma question'
                                     value={question.question}
                                     onChange={(event) => handleQuestionChange(event, index)}
                                 />
@@ -194,7 +199,7 @@ export const FormQuiz = ({ categoriesList }) => {
                             </FormContent>
 
                             <FormContent>
-                                <h3>Answers</h3>
+                                <h3>Réponses</h3>
                                 {question.answers.map((answer, answerIndex) => (
                                     <div key={answerIndex} className="answer-container">
                                         <div>
@@ -237,7 +242,7 @@ export const FormQuiz = ({ categoriesList }) => {
                                     onChange={(event) => handleSolutionChange(event, index)}
                                 >
                                     <option value="" disabled>
-                                        Select a solution
+                                        Choisi une solution
                                     </option>
                                     {new Array(3).fill(null).map((_, solution) => (
                                         <option key={solution} value={solution}>
@@ -258,8 +263,8 @@ export const FormQuiz = ({ categoriesList }) => {
                         </div>
                     ))}
 
-                    <Btn type="button" onClick={addQuestion}>Add a question</Btn>
-                    <BtnCreate type="submit">Create</BtnCreate>
+                    <Btn type="button" onClick={addQuestion}>Ajouter une question</Btn>
+                    <BtnCreate type="submit">Créer</BtnCreate>
 
                 </form>
             </FormPage>

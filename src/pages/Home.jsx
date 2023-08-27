@@ -38,6 +38,7 @@ export const Home = () => {
             setFilteredQuizList(quizList);
         } else {
             const filteredQuizzes = quizList.filter((quiz) =>
+    // some me retourne true si il y à un callback qui répond true et donc il est gardé dans mon filteredQuiz 
                 categoriesQuiz.some(
                     (category) => category.quiz_id === quiz.id && category.category_id === selectedCategory
                 )

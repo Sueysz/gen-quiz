@@ -22,23 +22,22 @@ export const Profile = () => {
     const [showModale, setShowModale] = useState(false);
     const [showDeleteConfirmationModale, setShowDeleteConfirmationModale] = useState(false);
 
-    const fetchUserData = async () => {
-        try {
-            const userData = await fetchUserinfo();
-            setUser(userData.user);
-            setQuiz(userData.quiz);
-        } catch (error) {
-            console.log('Error fetching user information:', error);
-            if (error.response && error.response.status === 401 && error.response.data.message === "Token expired. User has been logged out.") {
-                setTokenExpired(true);
-                logout();
-            }
-        }
-    };
-
     useEffect(() => {
         if (isLoggedIn) {
-            fetchUserData();
+            try {
+                const fetchUserData = async ()=>{
+                    const userData = await fetchUserinfo();
+                    setUser(userData.user);
+                    setQuiz(userData.quiz);
+                }
+                fetchUserData()
+            } catch (error) {
+                console.log('Error fetching user information:', error);
+                if (error.response && error.response.status === 401 && error.response.data.message === "Token expirée. l'utilisateur à était déconnecter.") {
+                    setTokenExpired(true);
+                    logout();
+                }
+            }
         }
     }, [isLoggedIn, logout]);
 
@@ -85,8 +84,8 @@ export const Profile = () => {
             <Logo/>
             {isLoggedIn ? (
                 <div>
-                    {tokenExpired && <p style={{ color: 'red' }}>Your session expired, please log in again</p>}
-                    <h1>Welcome, {user.username}! 🤹‍♀️</h1>
+                    {tokenExpired && <p style={{ color: 'red' }}>Ta session est expirée, reconnecte toi s&apos;il te plais </p>}
+                    <h1>Hello, {user.username}! 🤹‍♀️</h1>
                         <h1>User Informations</h1>
                     <ProfilInfo>
                         <label htmlFor="profile-photo">Choisi ta photo:</label>
@@ -95,7 +94,7 @@ export const Profile = () => {
                         <p>Email: {user.email}</p>
                     </ProfilInfo>
                     <div>
-                        <h1>Your QUIZ:</h1>
+                        <h1>Ton QUIZ:</h1>
                         <div className='grid'>
                             {quiz.map((quizItem) => (
                                 <CardList style={{ backgroundColor: quizItem.color }} key={quizItem.id} onClick={() => openModale(quizItem)}>
@@ -113,7 +112,7 @@ export const Profile = () => {
                                     <div key={index}>
                                         <h4>Question {index + 1}:</h4>
                                         <p>{qa.question}</p>
-                                        <h4>Answers:</h4>
+                                        <h4>réponses:</h4>
                                         {qa.answers.map((answer, answerIndex) => (
                                             <p key={answerIndex}>{answer}</p>
                                         ))}
@@ -123,20 +122,20 @@ export const Profile = () => {
                                 ))}
                             </div>
                             <DeleteContainer>
-                                <Btn onClick={openDeleteConfirmationModale}>Delete this quiz</Btn>
+                                <Btn onClick={openDeleteConfirmationModale}>Supprime ce quiz</Btn>
                             </DeleteContainer>
                         </Modale>
                     )}
                     {showDeleteConfirmationModale && (
                         <Modale>
-                            <h1>Are you sure, you gonna delete this quiz ?</h1>
+                            <h1>Tu es sûr de vouloir supprimer ce quiz ?</h1>
                             <button onClick={deleteQuizHandler}>Oui</button>
                             <button onClick={closeModale}>Annuler</button>
                         </Modale>
                     )}
                 </div>
             ) : (
-                <h1>Please log in to view your profile. 🤔</h1>
+                <h1>Connecte toi pour voir ton profile. 🤔</h1>
             )}
         </ProfilePage>
     );
