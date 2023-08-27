@@ -1,3 +1,4 @@
+const serverUrl = 'http://localhost:8800'
 
 // Fonction pour gérer la connexion de l'utilisateur
 export const login = async (email, password) => {
@@ -7,7 +8,7 @@ export const login = async (email, password) => {
     };
 
     try {
-        const response = await fetch("http://localhost:8800/login", {
+        const response = await fetch(serverUrl + "/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ export const register = async (userName, email, password) => {
     };
 
     try {
-        const response = await fetch("http://localhost:8800/register", {
+        const response = await fetch(serverUrl + "/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ export const getAuth = async (email, password) => {
     };
 
     try {
-        const response = await fetch("http://localhost:8800/login", {
+        const response = await fetch(serverUrl + "/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ export const getAuth = async (email, password) => {
 // Fonction pour obtenir la liste des quiz
 export const listQuiz = async () => {
     try {
-        const response = await fetch("http://localhost:8800/quiz");
+        const response = await fetch(serverUrl + "/quiz");
         if (!response.ok) {
             const errorMessage = await response.text();
             throw new Error(`Failed to fetch quizzes: ${errorMessage}`);
@@ -107,7 +108,7 @@ export const listQuiz = async () => {
 //fonction pour obtenir l'id du quiz avec le hook useparams
 export const getQuiz = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8800/quiz/${id}`);
+        const response = await fetch(serverUrl + `/quiz/${id}`);
         if (!response.ok) {
             const errorMessage = await response.text();
             throw new Error(`Failed to fetch quiz: ${errorMessage}`);
@@ -123,7 +124,7 @@ export const getQuiz = async (id) => {
 //fonction pour la déconnection
 export const logout = async () => {
     try {
-        const response = await fetch("http://localhost:8800/logout", {
+        const response = await fetch(serverUrl + "/logout", {
             method: "POST",
             credentials: "include",
         });
@@ -146,7 +147,7 @@ export const createQuiz = async (title, color, questions, category) => {
 
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:8800/createQuiz", {
+        const response = await fetch(serverUrl + "/createQuiz", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -171,7 +172,7 @@ export const createQuiz = async (title, color, questions, category) => {
 export const deleteQuiz = async (quizId) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8800/deleteQuiz/${quizId}`, {
+        const response = await fetch(serverUrl + `/deleteQuiz/${quizId}`, {
             method: "DELETE",
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -195,7 +196,7 @@ export const deleteQuiz = async (quizId) => {
 export const fetchUserinfo = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8800/user', {
+        const response = await fetch(serverUrl + '/user', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -219,7 +220,7 @@ export const fetchUserinfo = async () => {
 //fonction pour récuperer la liste des catégories
 export const fetchCategories = async () => {
     try {
-        const response = await fetch("http://localhost:8800/categories", {
+        const response = await fetch(serverUrl + "/categories", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -242,7 +243,7 @@ export const fetchCategories = async () => {
 //fonction qui récupère les quiz affilier à une categorie 
 export const getQuizCategories = async () => {
     try {
-        const response = await fetch("http://localhost:8800/quiz_categories", {
+        const response = await fetch(serverUrl + "/quiz_categories", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
