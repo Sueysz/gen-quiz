@@ -1,6 +1,6 @@
 
 import { Logo } from './Logo'
-import { Logout } from '../pages/Logout'
+import { Logout } from './Logout'
 import { LinkButton } from './style/Buttons'
 import { useAuth } from '../utils/AuthProvider'
 
